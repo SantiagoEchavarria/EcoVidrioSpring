@@ -1,0 +1,79 @@
+body {
+    min-height: 100vh;
+    display: flex;
+    background-color: #f5f5f5; /* Fondo sutil */
+}
+
+.sidebar {
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #343a40;
+    padding-top: 20px;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sidebar h4 {
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.sidebar a {
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    width: 100%; /* Hacer que los enlaces ocupen todo el ancho */
+    text-align: center; /* Centrar texto */
+    border-radius: 5px; /* Bordes redondeados */
+    margin: 5px 0; /* Espaciado entre enlaces */
+    transition: background-color 0.3s ease;
+}
+
+.sidebar a:hover {
+    background-color: #495057;
+}
+
+.content {
+    margin-left: 250px; /* Espacio para el sidebar */
+    padding: 20px;
+    width: calc(100% - 250px); /* Ajustar ancho del contenido */
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    height: 100vh; /* Para que ocupe toda la altura */
+}
+
+.form-container {
+    max-width: 600px; /* Ancho máximo del formulario */
+    width: 100%; /* Para que ocupe el 100% del contenedor */
+    padding: 20px;
+    background-color: #ffffff; /* Fondo blanco para el formulario */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #007bff; /* Color azul para el título */
+}
+
+.btn-primary, .btn-success, .btn-danger, .btn-secondary {
+    width: 48%; /* Hacer que los botones ocupen el 48% del contenedor */
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.btn-secondary:hover {
+    background-color: #6c757d;
+}

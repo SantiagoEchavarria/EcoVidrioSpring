@@ -5,14 +5,52 @@
     <style>
         body {
             background-color: #f8f9fa; /* Fondo gris claro */
+            min-height: 100vh;
+            display: flex;
+        }
+
+        .sidebar {
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #343a40;
+            padding-top: 20px;
+            width: 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .sidebar h4 {
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .sidebar a {
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            width: 100%; /* Hacer que los enlaces ocupen todo el ancho */
+            text-align: center; /* Centrar texto */
+            border-radius: 5px; /* Bordes redondeados */
+            margin: 5px 0; /* Espaciado entre enlaces */
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background-color: #495057;
         }
 
         .container {
+            margin-left: 250px; /* Espacio para el sidebar */
+            margin-right: 20px; /* Margen derecho */
+            padding: 30px;
             background-color: white;
             border-radius: 10px;
-            padding: 30px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
             margin-top: 50px;
+            flex-grow: 1; /* Para que ocupe el espacio restante */
         }
 
         h2 {
@@ -56,6 +94,18 @@
     </script>
 </head>
 <body>
+    <div class="sidebar">
+        <h4 class="text-center text-white">EcoVidrio</h4>
+        <a href="/turnoOperarioListar">Gestion Jornada</a>
+        <a href="/operadorListar">Gestion Operador</a>
+        <a href="/turnoListar">Gestion Turno</a>
+        <a href="/trituradoraListar">Gestion Trituradora</a>
+        <a href="/ciudadListar">Gestion Ciudad</a>
+        <a href="/departamentoListar">Gestion Departamento</a>
+        <a href="/direccionListar">Gestion Dirección</a>
+        <a href="/usuarioIngresar">Salir</a>
+    </div>
+
     <div class="container">
         <h2>Listado de Operadores</h2>
 
@@ -78,7 +128,7 @@
                     </thead>
                     <tbody>
                         <tr th:each="est:${operador}">
-                            <td th:text="${est.Cedula}"> &nbsp;</td>
+                            <td th:text="${est.cedula}"> &nbsp;</td>
                             <td th:text="${est.nombre1}"> &nbsp;</td>
                             <td th:text="${est.apellido1}"> &nbsp;</td>
                             <td th:text="${est.telefono}"> &nbsp;</td>
@@ -139,8 +189,6 @@
                         </div>
                     </div>
                 </div>
-
-              
 
             </div>
         </div>
