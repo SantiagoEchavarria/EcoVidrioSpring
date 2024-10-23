@@ -1,0 +1,66 @@
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ciudad</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f5f5f5; /* Fondo sutil */
+        }
+
+        .container {
+            background-color: white; /* Fondo blanco para el formulario */
+            border-radius: 10px; /* Bordes redondeados */
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+            margin-top: 50px; /* Separación del borde superior */
+        }
+
+        .form-control {
+            border-radius: 5px; /* Bordes más suaves */
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #007bff; /* Color azul para el título */
+        }
+
+        .btn-primary {
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <script src="/js/validacionCiudadInsertar.js"></script>
+    <div class="container">
+        <h2>Editar Ciudad</h2>
+        <form method="post" th:action="@{/insertarCiudad}" th:object="${ciudad}">
+            <div class="mb-3">
+                <label for="nombreCiudad" class="form-label">Nombre</label>
+                <input type="text" name="nombreCiudad" id="nombreCiudad" placeholder="Nombre" 
+                       maxlength="80" class="form-control" th:value="${ciudad.nombreCiudad}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="departamento" class="form-label">Departamento</label>
+                <select th:field="*{departamento}" class="form-select" required>
+                    <option th:each="cat:${departamento}" 
+                            th:value="${cat.id}" 
+                            th:text="${cat.nombreDepartamento}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="d-grid gap-2">
+                <input type="submit" value="Guardar" class="btn btn-primary">
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

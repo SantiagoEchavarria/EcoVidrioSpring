@@ -1,0 +1,132 @@
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Departamento</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            background-color: #f5f5f5; /* Fondo sutil */
+        }
+
+        .sidebar {
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #343a40;
+            padding-top: 20px;
+            width: 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .sidebar h4 {
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .sidebar a {
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            width: 100%; /* Hacer que los enlaces ocupen todo el ancho */
+            text-align: center; /* Centrar texto */
+            border-radius: 5px; /* Bordes redondeados */
+            margin: 5px 0; /* Espaciado entre enlaces */
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background-color: #495057;
+        }
+
+        .content {
+            margin-left: 250px; /* Espacio para el sidebar */
+            padding: 20px;
+            width: calc(100% - 250px); /* Ajustar ancho del contenido */
+            display: flex;
+            justify-content: center; /* Centrar horizontalmente */
+            align-items: center; /* Centrar verticalmente */
+            height: 100vh; /* Para que ocupe toda la altura */
+        }
+
+        .form-container {
+            max-width: 600px; /* Ancho máximo del formulario */
+            width: 100%; /* Para que ocupe el 100% del contenedor */
+            padding: 20px;
+            background-color: #ffffff; /* Fondo blanco para el formulario */
+            border-radius: 8px; /* Bordes redondeados */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #007bff; /* Color azul para el título */
+        }
+
+        .btn-primary, .btn-success, .btn-danger, .btn-secondary {
+            width: 48%; /* Hacer que los botones ocupen el 48% del contenedor */
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        .btn-secondary:hover {
+            background-color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <script src="/js/validacionTrituradoraInsertar.js"></script>
+    <div class="sidebar">
+        <h4 class="text-center text-white">EcoVidrio</h4>
+        <a href="/turnoOperarioInsertar">Gestion Jornada</a>
+        <a href="/operadorInsertar">Gestion Operador</a>
+        <a href="/turnoInsertar">Gestion Turno</a>
+        <a href="/trituradoraInsertar">Gestion Trituradora</a>
+		<a href="/ciudadInsertar">Gestion Ciudad</a>
+		<a href="/departamentoInsertar">Gestion Departamento</a>
+		<a href="/direccionInsertar">Gestion Dirección</a>
+        
+        <a href="/usuarioIngresar">Logout</a>
+    </div>
+
+    <div class="container my-3">
+        <div class="content">
+            <div class="form-container">
+                <form method="post" th:action="@{/insertarDepartamento}" th:object="${departamento}">
+                    <h2 class="text-center">Registrar Departamento</h2>
+
+                    <div class="mb-3">
+                        <label for="nombreDepartamento" class="form-label">Nombre</label>
+                        <input type="text" name="nombreDepartamento" id="nombreDepartamento" placeholder="Nombre" 
+       maxlength="80" class="form-control" required pattern="[A-Za-z0-9 ]+"
+       title="El nombre solo puede contener letras, números y espacios.">
+
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <a href="/departamentoListar" class="btn btn-success">Editar Departamento</a>
+                    </div>
+                    <br>
+					<div class="text-center">
+						<button type="reset" class="btn btn-secondary">Limpiar</button>
+						<a href="/trituradoraListar" class="btn btn-danger">Eliminar</a>
+					</div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
