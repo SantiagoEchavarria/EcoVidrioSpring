@@ -33,10 +33,35 @@
             opacity: 0.9;
         }
     </style>
+    <script>
+        // Función para filtrar la tabla de turnos
+        function buscarTurno() {
+            const input = document.getElementById("buscador").value.toLowerCase();
+            const filas = document.querySelectorAll("tbody tr");
+
+            filas.forEach(fila => {
+                const nombre = fila.querySelector("td:nth-child(1)").textContent.toLowerCase();
+                const horaEntrada = fila.querySelector("td:nth-child(2)").textContent.toLowerCase();
+                const horaSalida = fila.querySelector("td:nth-child(3)").textContent.toLowerCase();
+
+                if (nombre.includes(input) || horaEntrada.includes(input) || horaSalida.includes(input)) {
+                    fila.style.display = "";
+                } else {
+                    fila.style.display = "none";
+                }
+            });
+        }
+    </script>
 </head>
 <body>
     <div class="container">
         <h2>Listado de Turnos</h2>
+
+        <!-- Campo de búsqueda unificado -->
+        <div class="mb-3">
+            <input type="text" id="buscador" class="form-control" placeholder="Buscar por nombre, hora de entrada o hora de salida..." onkeyup="buscarTurno()">
+        </div>
+
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <table class="table table-striped table-bordered">
@@ -49,20 +74,20 @@
                         </tr>
                     </thead>
                     <tbody>
-						<tr th:each="est:${turno}">
+                        <tr th:each="est:${turno}">
                             <td th:text="${est.nombre}"> &nbsp;</td>
                             <td th:text="${est.hora_entrada}"> &nbsp;</td>
                             <td th:text="${est.hora_salida}"> &nbsp;</td>
                             <td> 
                                 <a th:href="@{/eliminar/}+ ${est.idturno}" class="btn btn-danger btn-sm" 
                                    onclick="return confirm('¿Seguro de eliminar?')">Eliminar</a>
-								   <a th:href="@{/modificar/} + ${est.idturno}" class="btn btn-primary btn-sm">Editar</a>
+                                <a th:href="@{/modificar/}+ ${est.idturno}" class="btn btn-primary btn-sm">Editar</a>
                             </td>
                         </tr>
                     </tbody>
                 </table>
                 <div class="text-center">
-                    <td colspan="4"><a th:href="@{/turnoInsertar}" class="btn btn-warning">Nuevo Registro</a>
+                    <a th:href="@{/turnoInsertar}" class="btn btn-warning">Nuevo Registro</a>
                 </div>
             </div>
         </div>
@@ -71,6 +96,3 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-
-
