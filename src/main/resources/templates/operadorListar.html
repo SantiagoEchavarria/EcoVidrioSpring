@@ -93,45 +93,54 @@
 
                 <div class="text-center">
                     <a th:href="@{/operadorInsertar}" class="btn btn-warning">Nuevo Registro</a>
-                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalTrituradora">
-                        Agregar Trituradora
+                  
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalTurnoOperario">
+                        Agregar Turno Operario
                     </button>
                 </div>
 
-                <div class="modal fade" id="modalTrituradora" tabindex="-1" aria-labelledby="modalTrituradoraLabel" aria-hidden="true">
+                <!-- Modal para agregar Turno Operario -->
+                <div class="modal fade" id="modalTurnoOperario" tabindex="-1" aria-labelledby="modalTurnoOperarioLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="modalTrituradoraLabel">Registrar Trituradora</h5>
+                                <h5 class="modal-title" id="modalTurnoOperarioLabel">Registrar Turno Operario</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form method="post" th:action="@{/insertarTrituradora}" th:object="${trituradora}">
+                                <form method="post" th:action="@{/insertarTurnoOperario}" th:object="${turnoOperario}">
                                     <div class="mb-3">
-                                        <label for="nombre" class="form-label">Nombre</label>
-                                        <input type="text" name="nombre" id="nombre" placeholder="Nombre" maxlength="80" class="form-control">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="descripcion" class="form-label">Descripción</label>
-                                        <input type="text" name="descripcion" id="descripcion" placeholder="Descripción" maxlength="80" class="form-control">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="direccion" class="form-label">Dirección</label>
-                                        <select id="direccionSelect" class="form-select" th:field="*{direccion}" required>
-                                            <option th:each="dir:${direccion}" th:value="${dir.id}" 
-                                                    th:text="${dir.nombreDireccion + ' - ' + dir.ciudad.nombreCiudad + ', ' + dir.ciudad.departamento.nombreDepartamento}">
-                                            </option>
+                                        <label for="operadorSelect" class="form-label">Operario</label>
+                                        <select id="operadorSelect" class="form-select" th:field="*{operador}" required>
+                                            <option th:each="cat:${operador}" th:value="${cat.cedula}" th:text="${cat.cedula}"></option>
                                         </select>
                                     </div>
+
+                                    <div class="mb-3">
+                                        <label for="turnoSelect" class="form-label">Turno</label>
+                                        <select id="turnoSelect" class="form-select" th:field="*{turno}" required>
+                                            <option th:each="tur:${turno}" th:value="${tur.idturno}" th:text="${tur.nombre}"></option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="trituradoraSelect" class="form-label">Trituradora</label>
+                                        <select id="trituradoraSelect" class="form-select" th:field="*{trituradora}" required>
+                                            <option th:each="tri:${trituradora}" th:value="${tri.idTrituradora}" th:text="${tri.nombre}"></option>
+                                        </select>
+                                    </div>
+
                                     <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary">Guardar Trituradora</button>
+                                        <button type="submit" class="btn btn-primary">Guardar Turno Operario</button>
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </div>
-                </div>    
+                </div>
+
+              
 
             </div>
         </div>

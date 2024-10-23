@@ -15,8 +15,10 @@ import org.springframework.web.bind.support.SessionStatus;
 public class OperadorControl {
     @Autowired
     private OperadorInterface operadorServicio;
-    //@Autowired
-   // private TrituradoraInterface trituradoraServicio;
+    @Autowired
+    private TurnoInterface turnoServicio;
+    @Autowired
+    private TrituradoraInterface trituradoraServicio;
     @Autowired
     private DireccionInterface direccionServicio;
  
@@ -45,26 +47,17 @@ public class OperadorControl {
     @GetMapping({"/operadorListar"})
     public String operadorListar(Model model) {
        List<Operador> operador = this.operadorServicio.listadoOperadores();
-       //List<Trituradora> trituradora = this.trituradoraServicio.listadoTrituradoras();
-       model.addAttribute("trituradora", new Trituradora()); // Aquí inicializas una nueva trituradora
+
+       model.addAttribute("trituradora", trituradoraServicio.listadoTrituradoras()); 
+       model.addAttribute("turnoOperario", new TurnoOperario()); 
        model.addAttribute("direccion", direccionServicio.listadoDirecciones());
+       model.addAttribute("turno", turnoServicio.listadoTurnos());
        model.addAttribute("operador", operador);
        model.addAttribute("mensaje", "Listado de Operadores");
        return "operadorListar";
     }
     
 
- /* 
-    @GetMapping({"/operadorListar"})
-    public String operadorListar(Model model) {
-       List<Operador> operador = this.operadorServicio.listadoOperadores();
-       List<Trituradora> trituradora = this.trituradoraServicio.listadoTrituradoras();
-       model.addAttribute("trituradora", trituradora); 
-    model.addAttribute("direccion", direccionServicio.listadoDirecciones()); 
-       model.addAttribute("operador", operador);
-       model.addAttribute("mensaje", "Listado de Operadores");
-       return "operadorListar";
-    }*/
 
 
     
