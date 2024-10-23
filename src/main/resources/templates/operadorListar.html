@@ -34,11 +34,36 @@
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Función para filtrar la tabla de operadores
+        function buscarOperador() {
+            const input = document.getElementById("buscador").value.toLowerCase();
+            const filas = document.querySelectorAll("tbody tr");
 
+            filas.forEach(fila => {
+                const cedula = fila.querySelector("td:nth-child(1)").textContent.toLowerCase();
+                const nombre = fila.querySelector("td:nth-child(2)").textContent.toLowerCase();
+                const apellido = fila.querySelector("td:nth-child(3)").textContent.toLowerCase();
+                const telefono = fila.querySelector("td:nth-child(4)").textContent.toLowerCase();
+
+                if (cedula.includes(input) || nombre.includes(input) || apellido.includes(input) || telefono.includes(input)) {
+                    fila.style.display = "";
+                } else {
+                    fila.style.display = "none";
+                }
+            });
+        }
+    </script>
 </head>
 <body>
     <div class="container">
-        <h2>Listado de Operaradores</h2>
+        <h2>Listado de Operadores</h2>
+
+        <!-- Campo de búsqueda -->
+        <div class="mb-3">
+            <input type="text" id="buscador" class="form-control" placeholder="Buscar operador..." onkeyup="buscarOperador()">
+        </div>
+
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <table class="table table-striped table-bordered">
@@ -57,7 +82,6 @@
                             <td th:text="${est.nombre1}"> &nbsp;</td>
                             <td th:text="${est.apellido1}"> &nbsp;</td>
                             <td th:text="${est.telefono}"> &nbsp;</td>
-
                             <td> 
                                 <a th:href="@{/eliminarOperador/}+ ${est.cedula}" class="btn btn-danger btn-sm" 
                                    onclick="return confirm('¿Seguro de eliminar?')">Eliminar</a>
@@ -66,6 +90,7 @@
                         </tr>
                     </tbody>
                 </table>
+
                 <div class="text-center">
                     <a th:href="@{/operadorInsertar}" class="btn btn-warning">Nuevo Registro</a>
                     <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalTrituradora">
