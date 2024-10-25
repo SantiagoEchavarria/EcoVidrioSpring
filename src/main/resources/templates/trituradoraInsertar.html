@@ -7,7 +7,7 @@
         body {
             min-height: 100vh;
             display: flex;
-            background-color: #f5f5f5;
+            background-color: #f5f5f5; /* Fondo sutil */
         }
 
         .sidebar {
@@ -32,10 +32,10 @@
             color: white;
             padding: 10px 15px;
             text-decoration: none;
-            width: 100%;
-            text-align: center;
-            border-radius: 5px;
-            margin: 5px 0;
+            width: 100%; /* Hacer que los enlaces ocupen todo el ancho */
+            text-align: center; /* Centrar texto */
+            border-radius: 5px; /* Bordes redondeados */
+            margin: 5px 0; /* Espaciado entre enlaces */
             transition: background-color 0.3s ease;
         }
 
@@ -44,45 +44,44 @@
         }
 
         .content {
-            margin-left: 250px;
+            margin-left: 250px; /* Espacio para el sidebar */
             padding: 20px;
-            width: calc(100% - 250px);
+            width: calc(100% - 250px); /* Ajustar ancho del contenido */
             display: flex;
-            justify-content: center;
-            align-items: center;
+            justify-content: center; /* Centrar horizontalmente */
+            align-items: center; /* Centrar verticalmente */
+            height: 100vh; /* Para que ocupe toda la altura */
         }
 
         .form-container {
-            max-width: 600px;
-            width: 100%;
-            padding: 30px;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px; /* Ancho máximo del formulario */
+            width: 100%; /* Para que ocupe el 100% del contenedor */
+            padding: 20px;
+            background-color: #ffffff; /* Fondo blanco para el formulario */
+            border-radius: 8px; /* Bordes redondeados */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
         }
 
         h2 {
             text-align: center;
             margin-bottom: 20px;
-            color: #007bff;
+            color: #007bff; /* Color azul para el título */
         }
 
-        .form-group {
-            margin-bottom: 15px;
+        .btn-primary, .btn-success, .btn-danger, .btn-secondary {
+            width: 48%; /* Hacer que los botones ocupen el 48% del contenedor */
         }
 
-        .btn-group {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
+        .btn-primary:hover {
+            background-color: #0056b3;
         }
 
-        .form-select, .form-control {
-            width: 100%;
+        .btn-danger:hover {
+            background-color: #c82333;
         }
 
-        .btn {
-            width: 100%;
+        .btn-secondary:hover {
+            background-color: #6c757d;
         }
     </style>
 </head>
@@ -121,13 +120,21 @@
                         </option>
                     </select>
                 </div>
-
-                <div class="btn-group">
+                <br>
+                <div class="text-center">
                     <button type="submit" class="btn btn-primary">Guardar</button>
-                    <a href="/trituradoraListar" class="btn btn-secondary">Editar Trituradora</a>
-                    <a href="/trituradoraListar" class="btn btn-danger">Eliminar Trituradora</a>
-                    <input type="reset" value="Limpiar" class="btn btn-success">
+                    <a href="/trituradoraListar" class="btn btn-success">Editar Trituradora</a>
                 </div>
+                <br>
+                <div class="text-center">
+                    <button type="reset" class="btn btn-secondary" id="clearBtn">Limpiar</button>
+                    <a href="/trituradoraListar" class="btn btn-danger">Eliminar Trituradora</a>
+                </div>
+                <div id="message" class="alert alert-info" style="display: none; margin-top: 10px;">
+                    Formulario limpiado.
+                </div>
+                <script src="/js/limpiar.js"></script>
+                
             </form>
         </div>
     </div>

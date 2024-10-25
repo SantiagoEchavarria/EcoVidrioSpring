@@ -36,6 +36,7 @@ public class UsuarioControl {
 
    public UsuarioControl() {
    }
+  
 
    @GetMapping({"usuarioInsertar"})
    public String usuarioInsertar(Model model) {
@@ -66,42 +67,45 @@ public class UsuarioControl {
 
   
    @PostMapping({"/insertarUsuario"})
-   public String insertarUsuario(@ModelAttribute(name = "usuario") Usuario usuario, 
-   Model model, SessionStatus status) {
-      this.usuarioServicio.guardarUsuario(usuario);
-      status.setComplete();
-      return "redirect:usuarioInsertar";
-   }
-
-
-   @PostMapping({"/ingresarUsuario"})
-public String ingresarUsuario(@ModelAttribute(name = "usuario") Usuario usuario, 
-                              Model model, SessionStatus status) {
-    Usuario usuarioExistente = usuarioServicio.consultar(usuario.getEmail());
-
-    if (usuarioExistente != null) {
-        if (usuarioExistente.getContrasena().equals(usuario.getContrasena())) {
-            if (usuarioExistente.getTipoUsuario().getId()==usuario.getTipoUsuario().getId()) {
-                System.out.println("Existe Usuario, contraseña y tipo de usuario correctos............................");
-                status.setComplete();
-                return "redirect:/operadorInsertar";
-            } else {
-                System.out.println("Existe Usuario pero el tipo de usuario es incorrecto............................");
-                model.addAttribute("error", "Tipo de usuario incorrecto");
-                return "redirect:/usuarioIngresar";
-            }
-        } else {
-            System.out.println("Existe Usuario pero la contraseña es incorrecta............................");
-            model.addAttribute("error", "Contraseña incorrecta");
-            return "redirect:/usuarioIngresar";
-        }
+public String insertarUsuario(@ModelAttribute(name = "usuario") Usuario usuario,  Model model, SessionStatus status) {
+    // Verificar si el usuario ya existe
+    if (usuarioServicio.consultar(usuario.getEmail()) != null) {
+        model.addAttribute("error", "El correo electrónico ya está registrado.");
+        return "usuarioInsertar"; // Volver al formulario de inserción
     }
-    System.out.println("No existe Usuario............................");
-    // Guardar el nuevo usuario si no existe
-    //this.usuarioServicio.guardarUsuario(usuario);
+    
+    // Si no existe, guardar el usuario
+    this.usuarioServicio.guardarUsuario(usuario);
     status.setComplete();
-    return "redirect:/usuarioIngresar";
+     // Establecer un mensaje de éxito
+     model.addAttribute("success", true);
+     model.addAttribute("mensaje", "Usuario creado con éxito.");
+    return "redirect:usuarioInsertar"; // Redirigir después de insertar
 }
+
+
+   @PostMapping("/ingresarUsuario")
+   public String ingresarUsuario(@ModelAttribute(name = "usuario") Usuario usuario, Model model) {
+       Usuario usuarioExistente = usuarioServicio.consultar(usuario.getEmail());
+   
+       if (usuarioExistente != null) {
+           if (usuarioExistente.getContrasena().equals(usuario.getContrasena())) {
+               if (usuarioExistente.getTipoUsuario().getId() == usuario.getTipoUsuario().getId()) {
+                   return "redirect:/operadorInsertar"; // Redirigir si todo es correcto
+               } else {
+                   model.addAttribute("error", "Tipo de usuario incorrecto.");
+               }
+           } else {
+               model.addAttribute("error", "Contraseña incorrecta.");
+           }
+       } else {
+           model.addAttribute("error", "No existe el usuario.");
+       }
+   
+       // Si hay un error, volver a la vista del formulario
+       return "usuarioIngresar"; // Nombre de tu vista HTML
+   }
+   
 
 @PostMapping("/recuperarUsuario")
 public String recuperarContrasena(@RequestParam("email") String email, Model model, SessionStatus status) {
@@ -181,22 +185,21 @@ public String recuperarContrasena(@ModelAttribute("usuario") Usuario usuario, Mo
 
    
    //Invento Aparte
-
-   @GetMapping ("/consultarCsuario/(email)")
-  public String consultarDipoUsuario(@PathVariable (name="email") String email, Model model) {
-     
-      Usuario usuario = usuarioServicio.consultar(email);
-     model.addAttribute("csuario", usuario);
-     model.addAttribute("mensaje","usuario");
-     return "redirect:/usuarioListar";
+   @GetMapping("/consultarUsuario/{email}")
+   public String consultarUsuario(@PathVariable(name = "email") String email, Model model) {
+       Usuario usuario = usuarioServicio.consultar(email);
+       model.addAttribute("usuario", usuario); // Asegúrate de que el nombre sea coherente
+       model.addAttribute("mensaje", "Usuario encontrado");
+       return "redirect:/usuarioListar";
   }
 
-   @GetMapping("/eliminarUsuario/{email}")
-  public String eliminarTipoUsuario (@PathVariable(name="email") String email, Model model) {
-
+  @GetMapping("/eliminarUsuario/{email}")
+  public String eliminarUsuario(@PathVariable(name = "email") String email, Model model) {
       usuarioServicio.eliminar(email);
-     return "redirect:/usuarioListar";
+      model.addAttribute("mensaje", "Usuario eliminado con éxito.");
+      return "redirect:/usuarioListar";
   }
+  
 
   @GetMapping("/modificarUsuario/{email}")
   public String modificarDipoUsuario (@PathVariable(name="email") String email,Model model) {

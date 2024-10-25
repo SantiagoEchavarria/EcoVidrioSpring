@@ -75,6 +75,12 @@
             <div class="col-sm-12 col-md-8 col-lg-6">
                 <div class="form-container">
                     <div class="form-header">Ingresar</div>
+
+                    <!-- Mensaje de error -->
+                    <div class="alert alert-danger" th:if="${error}" role="alert">
+                        <span th:text="${error}">Error: Mensaje de error aquí.</span>
+                    </div>
+
                     <form method="post" th:action="@{/ingresarUsuario}" th:object="${usuario}">
                         <div class="mb-4">
                             <label for="email" class="form-label">Email</label>
@@ -93,7 +99,7 @@
                         </div>
                         <div class="btn-group">
                             <input type="submit" value="Guardar" class="btn btn-primary">
-                            <input type="reset" value="Limpiar" class="btn btn-secondary">
+                            <button type="reset" class="btn btn-secondary" id="clearBtn">Limpiar</button>
                         </div>
                         <div class="mt-4 text-center">
                             <a href="/usuarioInsertar" class="btn btn-success">Crear un nuevo usuario</a>

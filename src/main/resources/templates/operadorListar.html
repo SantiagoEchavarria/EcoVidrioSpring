@@ -5,8 +5,8 @@
     <style>
         body {
             background-color: #f8f9fa; /* Fondo gris claro */
-            min-height: 100vh;
-            display: flex;
+            display: flex; /* Usar flexbox para el cuerpo */
+            min-height: 100vh; /* Asegura que el cuerpo ocupa toda la altura */
         }
 
         .sidebar {
@@ -22,35 +22,14 @@
             align-items: center;
         }
 
-        .sidebar h4 {
-            color: #ffffff;
-            margin-bottom: 20px;
-        }
-
-        .sidebar a {
-            color: white;
-            padding: 10px 15px;
-            text-decoration: none;
-            width: 100%; /* Hacer que los enlaces ocupen todo el ancho */
-            text-align: center; /* Centrar texto */
-            border-radius: 5px; /* Bordes redondeados */
-            margin: 5px 0; /* Espaciado entre enlaces */
-            transition: background-color 0.3s ease;
-        }
-
-        .sidebar a:hover {
-            background-color: #495057;
-        }
-
         .container {
-            margin-left: 250px; /* Espacio para el sidebar */
-            margin-right: 20px; /* Margen derecho */
-            padding: 30px;
             background-color: white;
             border-radius: 10px;
+            padding: 30px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
             margin-top: 50px;
-            flex-grow: 1; /* Para que ocupe el espacio restante */
+            margin-left: 250px; /* Margen izquierdo igual al ancho del sidebar */
+            width: calc(100% - 250px); /* Ajustar ancho para el espacio del sidebar */
         }
 
         h2 {
@@ -71,6 +50,26 @@
             opacity: 0.9;
         }
     </style>
+    <script>
+        // Función para filtrar la tabla de turno operario
+        function buscarTurnoOperario() {
+            const input = document.getElementById("buscador").value.toLowerCase();
+            const filas = document.querySelectorAll("tbody tr");
+
+            filas.forEach(fila => {
+                const operadorNombre = fila.querySelector("td:nth-child(1)").textContent.toLowerCase();
+                const turnoNombre = fila.querySelector("td:nth-child(2)").textContent.toLowerCase();
+                const trituradoraNombre = fila.querySelector("td:nth-child(3)").textContent.toLowerCase();
+
+                if (operadorNombre.includes(input) || turnoNombre.includes(input) || trituradoraNombre.includes(input)) {
+                    fila.style.display = "";
+                } else {
+                    fila.style.display = "none";
+                }
+            });
+        }
+    </script>
+    <link href="/css/sidebar.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Función para filtrar la tabla de operadores

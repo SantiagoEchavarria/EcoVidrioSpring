@@ -131,6 +131,24 @@
                             <td th:text="${est.nombreCiudad}"> &nbsp;</td>
                         </tr>
                     </tbody>
+
+                    <!-- para mostrar o no mostrar lso botones
+                    <tbody>
+    <tr th:each="est:${ciudad}">
+        <td>
+            <span th:if="${usuarioActual != null && usuarioActual.id == 2}">
+    <a th:href="@{/eliminarCiudad/}+ ${est.id}" class="btn btn-danger btn-sm" 
+       onclick="return confirm('¿Seguro de eliminar?')">Eliminar</a>
+    <a th:href="@{/modificarCiudad/} + ${est.id}" class="btn btn-primary btn-sm">Editar</a>
+</span>
+
+        </td>
+        <td th:text="${est.nombreCiudad}"> &nbsp;</td>
+    </tr>
+</tbody>
+
+                    
+                    --->
                 </table>
                 <div class="text-center">
                     <a th:href="@{/ciudadInsertar}" class="btn btn-warning">Nuevo Registro</a>

@@ -119,10 +119,14 @@
                         <a href="/departamentoListar" class="btn btn-success">Editar Departamento</a>
                     </div>
                     <br>
-					<div class="text-center">
-						<button type="reset" class="btn btn-secondary">Limpiar</button>
-						<a href="/trituradoraListar" class="btn btn-danger">Eliminar</a>
-					</div>
+                    <div class="text-center">
+                        <button type="reset" class="btn btn-secondary" id="clearBtn">Limpiar</button>
+                        <a href="/trituradoraListar" class="btn btn-danger">Eliminar</a>
+                    </div>
+                    <div id="message" class="alert alert-info" style="display: none; margin-top: 10px;">
+                        Formulario limpiado.
+                    </div>
+                    <script src="/js/limpiar.js"></script>
                 </form>
             </div>
         </div>

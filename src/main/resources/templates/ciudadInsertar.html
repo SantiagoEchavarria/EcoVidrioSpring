@@ -131,9 +131,13 @@
                     </div>
                     <br>
                     <div class="text-center">
-                        <input type="reset" value="Limpiar" class="btn btn-secondary">
+                        <button type="reset" class="btn btn-secondary" id="clearBtn">Limpiar</button>
                         <a href="/ciudadListar" class="btn btn-danger">Eliminar</a>
                     </div>
+                    <div id="message" class="alert alert-info" style="display: none; margin-top: 10px;">
+                        Formulario limpiado.
+                    </div>
+                    <script src="/js/limpiar.js"></script>
                 </form>
             </div>
         </div>
