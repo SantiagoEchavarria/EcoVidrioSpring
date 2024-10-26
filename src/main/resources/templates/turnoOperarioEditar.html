@@ -1,0 +1,68 @@
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar Turno</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        .form-control {
+            border-radius: 5px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+
+        .btn-primary {
+            width: 100%;
+        }
+
+        .btn-primary, .btn-danger {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover, .btn-danger:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Editar Turno</h2>
+        <form method="post" th:action="@{/insertarTurnoOperario}" th:object="${turnoOperario}">
+            <div class="mb-3">
+                <label for="operador" class="form-label">Operario</label>
+                <select class="form-select" th:field="*{operador}" required>
+                    <option th:each="cat:${operador}" th:value="${cat.cedula}" th:text="${cat.cedula}"></option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="turno" class="form-label">Turno</label>
+                <select class="form-select" th:field="*{turno}" required>
+                    <option th:each="tur:${turno}" th:value="${tur.idturno}" th:text="${tur.nombre}"></option>
+                </select>
+            </div>
+
+            <div class="d-grid gap-2">
+                <input type="submit" value="Guardar" class="btn btn-primary">
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

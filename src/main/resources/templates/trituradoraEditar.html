@@ -1,0 +1,94 @@
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar Trituradora</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        .form-control {
+            border-radius: 5px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+
+        .btn-primary {
+            width: 100%;
+        }
+
+        .btn-primary, .btn-danger {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover, .btn-danger:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+  
+    <div class="row">
+        <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
+        </div>
+
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <form method="post" th:action="@{/insertarTrituradora}" th:object="${trituradora}">
+                <table class="table table-striped">
+                    <tr>
+                        <th colspan="2" class="text-center">Trituradora</th>
+                    </tr>
+                    
+                    <tr>
+                        <td colspan="2">&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <td>Nombre</td>
+                        <td><input type="text" name="nombre" id="nombre" placeholder="Nombre" 
+                            maxlength="80" class="form-control"  th:value="${trituradora.nombre}"></td>
+                    </tr>
+
+                    
+
+                    <tr>
+                        <td>Descripcion</td>
+                        <td><input type="text" name="descripcion" id="descripcion" placeholder="descripcion" 
+                            maxlength="80" class="form-control" th:value="${trituradora.descripcion}"></td>
+                    </tr>
+                    
+
+                    <tr>
+                        <td colspan="2">&nbsp;</td>
+                    </tr>
+                    
+                    <tr>
+                        <td colspan="2">
+                            <input type="submit" value="Guardar" class="btn btn-primary">
+                            <input type="reset" value="Limpiar" class="btn btn-success">
+                        </td>
+                    </tr>
+
+                </table>
+            </form>
+
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
