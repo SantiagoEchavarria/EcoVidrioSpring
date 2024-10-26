@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @SessionAttributes({"operador"})
 public class OperadorControl {
@@ -21,6 +23,8 @@ public class OperadorControl {
     private TrituradoraInterface trituradoraServicio;
     @Autowired
     private DireccionInterface direccionServicio;
+    @Autowired
+    private TurnoOperarioInterface turnoOperarioServicio;
  
     public OperadorControl() {
     }
@@ -45,8 +49,13 @@ public class OperadorControl {
     }
 
     @GetMapping({"/operadorListar"})
-    public String operadorListar(Model model) {
+    public String operadorListar(Model model, HttpSession session) {
        List<Operador> operador = this.operadorServicio.listadoOperadores();
+
+       TurnoOperario turnoOperario = new TurnoOperario();
+       session.setAttribute("turnoOperario", turnoOperario);
+       model.addAttribute("turnoOperario", turnoOperario);
+       //model.addAttribute("turnoOperario", turnoOperarioServicio.listadoTurnoOperarios());
 
        model.addAttribute("trituradora", trituradoraServicio.listadoTrituradoras()); 
        model.addAttribute("turnoOperario", new TurnoOperario()); 

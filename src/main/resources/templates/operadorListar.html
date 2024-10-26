@@ -147,17 +147,19 @@
                         Agregar Turno Operario
                     </button>
                 </div>
-
-                <!-- Modal para agregar Turno Operario -->
+      
+                <!-- Modal para insertar Turno Operario -->
                 <div class="modal fade" id="modalTurnoOperario" tabindex="-1" aria-labelledby="modalTurnoOperarioLabel" aria-hidden="true">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="modalTurnoOperarioLabel">Registrar Turno Operario</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                             </div>
                             <div class="modal-body">
                                 <form method="post" th:action="@{/insertarTurnoOperario}" th:object="${turnoOperario}">
+                                    
+                                    <!-- Selector de Operario -->
                                     <div class="mb-3">
                                         <label for="operadorSelect" class="form-label">Operario</label>
                                         <select id="operadorSelect" class="form-select" th:field="*{operador}" required>
@@ -165,6 +167,7 @@
                                         </select>
                                     </div>
 
+                                    <!-- Selector de Turno -->
                                     <div class="mb-3">
                                         <label for="turnoSelect" class="form-label">Turno</label>
                                         <select id="turnoSelect" class="form-select" th:field="*{turno}" required>
@@ -172,6 +175,7 @@
                                         </select>
                                     </div>
 
+                                    <!-- Selector de Trituradora -->
                                     <div class="mb-3">
                                         <label for="trituradoraSelect" class="form-label">Trituradora</label>
                                         <select id="trituradoraSelect" class="form-select" th:field="*{trituradora}" required>
@@ -179,15 +183,23 @@
                                         </select>
                                     </div>
 
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary">Guardar Turno Operario</button>
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    <!-- Botones de acción -->
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                        <button type="reset" class="btn btn-secondary">Limpiar</button>
                                     </div>
+
                                 </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
                             </div>
                         </div>
                     </div>
                 </div>
+                
+
+
 
             </div>
         </div>

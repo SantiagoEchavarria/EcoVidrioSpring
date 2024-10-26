@@ -65,7 +65,7 @@ public class TurnoOperarioControl {
    Model model, SessionStatus status) {
       this.turnoOperarioServicio.guardarTurnoOperario(turnoOperario);
       status.setComplete();
-      return "redirect:turnoOperarioListar";
+      return "redirect:/turnoOperarioListar";
    }
 
    @GetMapping({"/turnoOperarioListar"})
