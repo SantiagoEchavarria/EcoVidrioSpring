@@ -89,7 +89,7 @@ public class TurnoOperarioControl {
      return "redirect:/turnoOperarioListar";
   }
 
-   @GetMapping("/eliminarTurnoOperario/{operador_cedula}")
+   @GetMapping("/eliminarTurnoOperario/{idOperario}")
   public String eliminarDepartamento (@PathVariable(name="idOperario") int id, Model model) {
      
       turnoOperarioServicio.eliminar(id);
