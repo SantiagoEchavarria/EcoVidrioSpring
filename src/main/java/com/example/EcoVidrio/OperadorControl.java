@@ -41,12 +41,17 @@ public class OperadorControl {
 
    
     @PostMapping({"/insertarOperador"})
-    public String insertarOperador(@ModelAttribute(name = "operador") Operador operador, 
-    Model model, SessionStatus status) {
-       this.operadorServicio.guardarOperador(operador);
-       status.setComplete();
-       return "redirect:operadorListar";
+    public String insertarOperador(@ModelAttribute(name = "operador") Operador operador, Model model, SessionStatus status) {
+        if (operadorServicio.existeCedula(operador.getCedula())) {
+        model.addAttribute("errorMessage", "La cédula ya existe. Por favor, ingrese una cédula única.");
+        return "operadorInsertar"; // Devuelve a la vista de inserción con el mensaje de error.
     }
+    
+    this.operadorServicio.guardarOperador(operador);
+    status.setComplete();
+    return "redirect:/operadorListar";
+}
+
 
     @GetMapping({"/operadorListar"})
     public String operadorListar(Model model, HttpSession session) {

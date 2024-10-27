@@ -33,5 +33,11 @@ public void eliminar(String cedula) {
     operadorDAO.deleteByCedula(cedula);  // Usa deleteByCedula en lugar de deleteById
 }
 
+@Override
+@Transactional
+public boolean existeCedula(String cedula) {
+    return operadorDAO.findByCedula(cedula).isPresent();  // Verifica si existe la cédula
+}
+
 
 }
