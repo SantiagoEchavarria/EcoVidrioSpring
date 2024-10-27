@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TurnoActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <Spinner
+            android:id="@+id/spinnerTurno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp" />
+
+        <EditText
+            android:id="@+id/NombreTurno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nombre Turno" />
+
+        <EditText
+            android:id="@+id/horaEntradaTurno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Hora Entrada" />
+
+        <!-- Spinner para seleccionar el turno -->
+
+        <EditText
+            android:id="@+id/horaEntradaTurno2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Hora Salida" />
+
+        <Button
+            android:id="@+id/idCrear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Crear" />
+
+        <Button
+            android:id="@+id/modificarTurno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Modificar" />
+
+        <Button
+            android:id="@+id/EliminarTurno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Eliminar" />
+
+        <Button
+            android:id="@+id/BuscarTurno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Buscar" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/register_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:text="" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

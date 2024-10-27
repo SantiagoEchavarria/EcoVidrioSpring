@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/NombreRUsuarioOperario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nombre de Usuario" />
+
+        <EditText
+            android:id="@+id/HoraSalidaTurno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Contrasena"
+            android:inputType="textPassword" />
+
+        <Spinner
+            android:id="@+id/spinner_roles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:spinnerMode="dropdown" />
+
+        <Button
+            android:id="@+id/login_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ingresar" />
+
+        <TextView
+            android:id="@+id/login_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:paddingTop="16dp" />
+
+        <!-- ComboBox (Spinner) para seleccionar el rol -->
+
+
+        <Button
+            android:id="@+id/crearUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/transparent"
+            android:onClick="irHaciaCrearUsuario"
+            android:text="Crear Usuario"
+            android:textColor="@color/purple_500" />
+
+        <Button
+            android:id="@+id/Recuperar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/transparent"
+            android:onClick="irHaciaRecuperarContrasena"
+            android:text="Recuperar Contrasena"
+            android:textColor="@color/purple_500" />
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
