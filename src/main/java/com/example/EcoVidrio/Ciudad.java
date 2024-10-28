@@ -7,11 +7,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.EnumType;
+
 
 @Entity
 @Table(name = "ciudad")
@@ -31,9 +34,13 @@ public class Ciudad {
     		cascade = CascadeType.ALL) 
     List<Direccion> direccion;
 
+     // Nuevo atributo para estado
+    @Enumerated(EnumType.STRING)
+    private Estado estado;  // Enum para estado habilitado o inhabilitado
     
  public Ciudad() {
 	 direccion= new ArrayList<>();
+     this.estado = Estado.HABILITADO; // Valor por defecto
 }
 
 
@@ -57,8 +64,9 @@ public void setDireccion(List<Direccion> direccion) {
 
 
     public Ciudad( int id, String nombre) {
-        this.id=id;
+        this.id = id;
         this.nombreCiudad = nombre;
+        this.estado = Estado.HABILITADO; // Valor por defecto
     }
 
     public int getId() {
@@ -75,6 +83,13 @@ public void setDireccion(List<Direccion> direccion) {
 
     public void setNombreCiudad(String ciudad) {
         this.nombreCiudad = ciudad;
+    }
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
     @Override
 	public String toString() {
