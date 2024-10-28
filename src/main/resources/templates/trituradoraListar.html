@@ -67,6 +67,42 @@
                 }
             });
         }
+
+        // Función para habilitar una trituradora
+        function habilitarTrituradora(id) {
+            if (confirm('¿Estás seguro de que deseas habilitar esta trituradora?')) {
+                fetch(`/habilitarTrituradora/${id}`, { method: 'GET' })
+                    .then(response => {
+                        if (response.ok) {
+                            location.reload();
+                        } else {
+                            alert('Error al habilitar la trituradora.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Ocurrió un error al habilitar la trituradora.');
+                    });
+            }
+        }
+
+        // Función para inhabilitar una trituradora
+        function inhabilitarTrituradora(id) {
+            if (confirm('¿Estás seguro de que deseas inhabilitar esta trituradora?')) {
+                fetch(`/inhabilitarTrituradora/${id}`, { method: 'GET' })
+                    .then(response => {
+                        if (response.ok) {
+                            location.reload();
+                        } else {
+                            alert('Error al inhabilitar la trituradora.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Ocurrió un error al inhabilitar la trituradora.');
+                    });
+            }
+        }
     </script>
     <link href="/css/sidebar.css" rel="stylesheet">
 </head>
@@ -106,6 +142,7 @@
                         <tr>
                             <th>Nombre</th>
                             <th>Descripción</th>
+                            <th>Estado</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -113,10 +150,21 @@
                         <tr th:each="est:${trituradora}">
                             <td th:text="${est.nombre}"> &nbsp;</td>
                             <td th:text="${est.descripcion}"> &nbsp;</td>
+                            <td th:text="${est.estado}"> &nbsp;</td>
                             <td> 
-                                <a th:href="@{/eliminarTrituradora/}+ ${est.idTrituradora}" class="btn btn-danger btn-sm" 
-                                   onclick="return confirm('¿Seguro de eliminar?')">Eliminar</a>
-                                <a th:href="@{/modificarTrituradora/}+${est.idTrituradora}" class="btn btn-primary btn-sm">Editar</a>
+                                <button class="btn btn-success btn-sm" 
+                                        th:attr="data-id=${est.id}"
+                                        th:if="${est.estado.name() == 'INHABILITADO'}"
+                                        onclick="habilitarTrituradora(this.dataset.id)">
+                                    Habilitar
+                                </button>
+                                <button class="btn btn-danger btn-sm" 
+                                        th:attr="data-id=${est.id}" 
+                                        th:if="${est.estado.name() == 'HABILITADO'}"
+                                        onclick="inhabilitarTrituradora(this.dataset.id)">
+                                    Inhabilitar
+                                </button>
+                                   <a th:href="@{/modificarTrituradora/}+${est.id}" class="btn btn-primary btn-sm">Editar</a>
                             </td>
                         </tr>
                     </tbody>

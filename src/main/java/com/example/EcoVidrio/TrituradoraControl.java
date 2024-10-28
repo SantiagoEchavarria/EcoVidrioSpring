@@ -47,7 +47,7 @@ public class TrituradoraControl {
     Model model, SessionStatus status) {
        this.trituradoraServicio.guardarTrituradora(trituradora);
        status.setComplete();
-       return "redirect:trituradoraInsertar";
+       return "redirect:/trituradoraListar";
     }
  
     @GetMapping({"/trituradoraListar"})
@@ -92,4 +92,17 @@ public class TrituradoraControl {
 		model.addAttribute("mensaje","editar");
 		return "trituradoraEditar";
 	}
+    // Método para inhabilitar la dirección
+   @GetMapping("/inhabilitarTrituradora/{id}")
+   public String inhabilitarTrituradora(@PathVariable(name = "id") int id) {
+       trituradoraServicio.inhabilitarTrituradora(id);  // Cambiar el estado de la dirección a inhabilitado
+       return "redirect:/trituradoraListar";
+   }
+
+   // Método para habilitar la dirección
+   @GetMapping("/habilitarTrituradora/{id}")
+   public String habilitarTrituradora(@PathVariable(name = "id") int id) {
+       trituradoraServicio.habilitarTrituradora(id);  // Cambiar el estado de la dirección a habilitado
+       return "redirect:/trituradoraListar";
+   }
 }

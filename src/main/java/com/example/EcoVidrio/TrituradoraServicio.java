@@ -35,7 +35,23 @@ public class TrituradoraServicio implements TrituradoraInterface {
 public void eliminar(int id) {
     trituradoraDAO.deleteById(id);  // Usa deleteByCedula en lugar de deleteById
 }
+@Override
+ public void inhabilitarTrituradora(int id) {
+	 Trituradora trituradora = consultar(id);
+	 if (trituradora != null) {
+        trituradora.setEstado(Estado.INHABILITADO);  // Cambia el estado a inhabilitado
+		 guardarTrituradora(trituradora);
+	 }
+ }
 
+ @Override
+ public void habilitarTrituradora(int id) {
+	 Trituradora trituradora = consultar(id);
+	 if (trituradora != null) {
+        trituradora.setEstado(Estado.HABILITADO);  // Cambia el estado a habilitado
+		 guardarTrituradora(trituradora);
+	 }
+ }
   
 
 }

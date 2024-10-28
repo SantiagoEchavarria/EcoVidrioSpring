@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
@@ -18,10 +20,13 @@ import jakarta.persistence.Table;
 @Table(name = "trituradora")
 public class Trituradora {
     @Id
-    int idTrituradora;
+    int id;
     String nombre;
     String descripcion;
 
+    // Nuevo atributo para estado
+    @Enumerated(EnumType.STRING)
+    private Estado estado; // Enum para estado habilitado o inhabilitado
 
     //Relacion muchos a uno	
 	@JsonIgnore
@@ -45,6 +50,7 @@ public class Trituradora {
     List<TurnoOperario> turnoOperario;
     
      public Trituradora() {
+        this.estado = Estado.HABILITADO; // Valor por defecto
         turnoOperario= new ArrayList<>();
     }
 
@@ -56,21 +62,22 @@ public class Trituradora {
   
  
 
-    public Trituradora(int idTrituradora, String descripcion, String nombre) {
-        this.idTrituradora = idTrituradora;
+    public Trituradora(int id, String descripcion, String nombre) {
+        this.id = id;
        
         this.descripcion = descripcion;
         this.nombre = nombre;
-       
+        this.estado = Estado.HABILITADO; // Valor por defecto
+        
     }
 
     
-    public int getIdTrituradora() {
-        return idTrituradora;
+    public int getId() {
+        return id;
     }
 
-    public void setIdTrituradora(int idTrituradora) {
-        this.idTrituradora = idTrituradora;
+    public void setId(int id) {
+        this.id = id;
     }
 
 
@@ -90,13 +97,19 @@ public class Trituradora {
         this.nombre = nombre;
     }
 
-   
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
 
     // Método toString
     @Override
     public String toString() {
         return "Trituradora{" +
-                "idTrituradora=" + idTrituradora +
+                "idTrituradora=" + id +
                 ", descripcion='" + descripcion + '\'' +
                 ", nombre='" + nombre + '\'' +
                 '}';
