@@ -33,4 +33,22 @@ public class TurnoServicio implements TurnoInterface {
     public void eliminar(int id) {
         turnoDAO.deleteById(id); 
  }
+ @Override
+public void inhabilitarTurno(int id) {
+    Turno turno = consultar(id);
+    if (turno != null) {
+        turno.setEstado(Estado.INHABILITADO);  // Cambia el estado a inhabilitado
+        guardarTurno(turno);
+    }
+}
+
+@Override
+public void habilitarTurno(int id) {
+    Turno turno = consultar(id);
+    if (turno != null) {
+        turno.setEstado(Estado.HABILITADO);  // Cambia el estado a habilitado
+        guardarTurno(turno);
+    }
+}
+
 }

@@ -81,5 +81,19 @@ public class TurnoControl {
          model.addAttribute("mensaje","editar");
          return "turnoEditar";
      }
+     // Método para inhabilitar el turno
+    @GetMapping("/inhabilitarTurno/{id}")
+    public String inhabilitarTurno(@PathVariable(name = "id") int id) {
+        turnoServicio.inhabilitarTurno(id);  // Cambiar el estado del turno a inhabilitado
+        return "redirect:/turnoListar";
+    }
+
+    // Método para habilitar el turno
+    @GetMapping("/habilitarTurno/{id}")
+    public String habilitarTurno(@PathVariable(name = "id") int id) {
+        turnoServicio.habilitarTurno(id);  // Cambiar el estado del turno a habilitado
+        return "redirect:/turnoListar";
+    }
+
     
 }

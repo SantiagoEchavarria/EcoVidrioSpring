@@ -4,6 +4,8 @@ import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -18,6 +20,10 @@ public class Turno {
     String hora_entrada;
     String hora_salida;
     
+    // Nuevo atributo para estado
+    @Enumerated(EnumType.STRING)
+    private Estado estado; // Enum para estado habilitado o inhabilitado
+
       ///Relacion 1 a muchos
     @OneToMany (mappedBy="turno", fetch = FetchType.LAZY,
     		cascade = CascadeType.ALL) 
@@ -25,6 +31,7 @@ public class Turno {
 
     
     public Turno() {
+        this.estado = Estado.HABILITADO; // Valor por defecto
         turnoOperarios= new ArrayList<>();
     }
 
@@ -44,6 +51,7 @@ public class Turno {
         this.nombre = nombre;
         this.hora_entrada = hora_entrada;
         this.hora_salida = hora_salida;
+        this.estado = Estado.HABILITADO; // Valor por defecto
     }
 
     public int getIdturno() {
@@ -76,5 +84,12 @@ public class Turno {
 
     public void setHora_salida(String hora_salida) {
         this.hora_salida = hora_salida;
+    }
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 }

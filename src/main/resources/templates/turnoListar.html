@@ -68,6 +68,42 @@
                 }
             });
         }
+        // Función para habilitar un turno
+function habilitarTurno(id) {
+    if (confirm('¿Estás seguro de que deseas habilitar este turno?')) {
+        fetch(`/habilitarTurno/${id}`, { method: 'GET' })
+            .then(response => {
+                if (response.ok) {
+                    location.reload();
+                } else {
+                    alert('Error al habilitar el turno.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Ocurrió un error al habilitar el turno.');
+            });
+    }
+}
+
+// Función para inhabilitar un turno
+function inhabilitarTurno(id) {
+    if (confirm('¿Estás seguro de que deseas inhabilitar este turno?')) {
+        fetch(`/inhabilitarTurno/${id}`, { method: 'GET' })
+            .then(response => {
+                if (response.ok) {
+                    location.reload();
+                } else {
+                    alert('Error al inhabilitar el turno.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Ocurrió un error al inhabilitar el turno.');
+            });
+    }
+}
+
     </script>
     <link href="/css/sidebar.css" rel="stylesheet">
 </head>
@@ -107,6 +143,7 @@
                             <th>Nombre</th>
                             <th>Hora de entrada</th>
                             <th>Hora de salida</th>
+                            <th>Estado</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -115,10 +152,23 @@
                             <td th:text="${est.nombre}"> &nbsp;</td>
                             <td th:text="${est.hora_entrada}"> &nbsp;</td>
                             <td th:text="${est.hora_salida}"> &nbsp;</td>
+                            <td th:text="${est.estado}"> &nbsp;</td>
                             <td> 
-                                <a th:href="@{/eliminar/}+ ${est.idturno}" class="btn btn-danger btn-sm" 
-                                   onclick="return confirm('¿Seguro de eliminar?')">Eliminar</a>
-                                <a th:href="@{/modificar/}+ ${est.idturno}" class="btn btn-primary btn-sm">Editar</a>
+                                <button class="btn btn-success btn-sm" 
+                                    th:attr="data-id=${est.idturno}"
+                                    th:if="${est.estado.name() == 'INHABILITADO'}"
+                                    onclick="habilitarTurno(this.dataset.id)">
+                                    Habilitar
+                                </button>
+
+                                <button class="btn btn-danger btn-sm" 
+                                     th:attr="data-id=${est.idturno}" 
+                                     th:if="${est.estado.name() == 'HABILITADO'}"
+                                     onclick="inhabilitarTurno(this.dataset.id)">
+                                    Inhabilitar
+                                </button>
+
+                                   <a th:href="@{/modificar/}+ ${est.idturno}" class="btn btn-primary btn-sm">Editar</a>
                             </td>
                         </tr>
                     </tbody>
