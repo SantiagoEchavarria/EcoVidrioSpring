@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Departamento</title>
@@ -87,6 +88,42 @@
                 }
             });
         }
+
+        // Función para habilitar un departamento
+        function habilitarDepartamento(id) {
+            if (confirm('¿Estás seguro de que deseas habilitar este departamento?')) {
+                fetch(`/habilitarDepartamento/${id}`, { method: 'GET' })
+                    .then(response => {
+                        if (response.ok) {
+                            location.reload();
+                        } else {
+                            alert('Error al habilitar el departamento.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Ocurrió un error al habilitar el departamento.');
+                    });
+            }
+        }
+
+        // Función para inhabilitar un departamento
+        function inhabilitarDepartamento(id) {
+            if (confirm('¿Estás seguro de que deseas inhabilitar este departamento?')) {
+                fetch(`/inhabilitarDepartamento/${id}`, { method: 'GET' })
+                    .then(response => {
+                        if (response.ok) {
+                            location.reload();
+                        } else {
+                            alert('Error al inhabilitar el departamento.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Ocurrió un error al inhabilitar el departamento.');
+                    });
+            }
+        }
     </script>
 </head>
 <body>
@@ -105,12 +142,10 @@
     <div class="container">
         <h2>Listado de Departamentos</h2>
         <br>
-        <br>
         <div class="text-center">
             <a th:href="@{/departamentoInsertar}" class="btn btn-warning">Nuevo Registro</a>
         </div>
 
-        <br>
         <br>
         <!-- Campo de búsqueda -->
         <div class="mb-3">
@@ -124,16 +159,29 @@
                         <tr>
                             <th>Acciones</th>
                             <th>Nombre</th>
+                            <th>Estado</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="est:${departamento}">
-                            <td> 
-                                <a th:href="@{/eliminarDepartamento/}+ ${est.id}" class="btn btn-danger btn-sm" 
-                                   onclick="return confirm('¿Seguro de eliminar?')">Eliminar</a>
-                                <a th:href="@{/modificarDepartamento/} + ${est.id}" class="btn btn-primary btn-sm">Editar</a>
+                            <td>
+                                <button class="btn btn-success btn-sm" 
+                                        th:attr="data-id=${est.id}"
+                                        th:if="${est.estado.name() == 'INHABILITADO'}"
+                                        onclick="habilitarDepartamento(this.dataset.id)">
+                                    Habilitar
+                                </button>
+                                <button class="btn btn-danger btn-sm" 
+                                        th:attr="data-id=${est.id}" 
+                                        th:if="${est.estado.name() == 'HABILITADO'}"
+                                        onclick="inhabilitarDepartamento(this.dataset.id)">
+                                    Inhabilitar
+                                </button>
+                                <a th:href="@{/modificarDepartamento/{id}(id=${est.id})}" class="btn btn-primary btn-sm">Editar</a>
+                               
                             </td>
                             <td th:text="${est.nombreDepartamento}"> &nbsp;</td>
+                            <td th:text="${est.estado}"> &nbsp;</td>
                         </tr>
                     </tbody>
                 </table>
