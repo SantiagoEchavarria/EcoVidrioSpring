@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Dirección</title>
@@ -87,6 +88,42 @@
                 }
             });
         }
+
+        // Función para habilitar una dirección
+        function habilitarDireccion(id) {
+            if (confirm('¿Estás seguro de que deseas habilitar esta dirección?')) {
+                fetch(`/habilitarDireccion/${id}`, { method: 'GET' })
+                    .then(response => {
+                        if (response.ok) {
+                            location.reload();
+                        } else {
+                            alert('Error al habilitar la dirección.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Ocurrió un error al habilitar la dirección.');
+                    });
+            }
+        }
+
+        // Función para inhabilitar una dirección
+        function inhabilitarDireccion(id) {
+            if (confirm('¿Estás seguro de que deseas inhabilitar esta dirección?')) {
+                fetch(`/inhabilitarDireccion/${id}`, { method: 'GET' })
+                    .then(response => {
+                        if (response.ok) {
+                            location.reload();
+                        } else {
+                            alert('Error al inhabilitar la dirección.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Ocurrió un error al inhabilitar la dirección.');
+                    });
+            }
+        }
     </script>
 </head>
 <body>
@@ -125,16 +162,28 @@
                         <tr>
                             <th>Acciones</th>
                             <th>Nombre</th>
+                            <th>Estado</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="est:${direccion}">
                             <td> 
-                                <a th:href="@{/eliminarDireccion/}+ ${est.id}" class="btn btn-danger btn-sm" 
-                                   onclick="return confirm('¿Seguro de eliminar?')">Eliminar</a>
                                 <a th:href="@{/modificarDireccion/} + ${est.id}" class="btn btn-primary btn-sm">Editar</a>
+                                <button class="btn btn-success btn-sm" 
+                                        th:attr="data-id=${est.id}"
+                                        th:if="${est.estado.name() == 'INHABILITADO'}"
+                                        onclick="habilitarDireccion(this.dataset.id)">
+                                    Habilitar
+                                </button>
+                                <button class="btn btn-danger btn-sm" 
+                                        th:attr="data-id=${est.id}" 
+                                        th:if="${est.estado.name() == 'HABILITADO'}"
+                                        onclick="inhabilitarDireccion(this.dataset.id)">
+                                    Inhabilitar
+                                </button>
                             </td>
                             <td th:text="${est.nombreDireccion}"> &nbsp;</td>
+                            <td th:text="${est.estado}"> &nbsp;</td>
                         </tr>
                     </tbody>
                 </table>

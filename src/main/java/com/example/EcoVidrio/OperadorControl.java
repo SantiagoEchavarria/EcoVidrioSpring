@@ -23,8 +23,6 @@ public class OperadorControl {
     private TrituradoraInterface trituradoraServicio;
     @Autowired
     private DireccionInterface direccionServicio;
-    @Autowired
-    private TurnoOperarioInterface turnoOperarioServicio;
  
     public OperadorControl() {
     }

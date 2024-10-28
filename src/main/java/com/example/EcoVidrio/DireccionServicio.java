@@ -33,5 +33,22 @@ public class DireccionServicio implements DireccionInterface {
  public void eliminar(int id) {
 	 direccionDAO.deleteById(id);
  }
+ @Override
+ public void inhabilitarDireccion(int id) {
+	 Direccion direccion = consultar(id);
+	 if (direccion != null) {
+		 direccion.setEstado(Estado.INHABILITADO);  // Cambia el estado a inhabilitado
+		 guardarDireccion(direccion);
+	 }
+ }
+
+ @Override
+ public void habilitarDireccion(int id) {
+	 Direccion direccion = consultar(id);
+	 if (direccion != null) {
+		 direccion.setEstado(Estado.HABILITADO);  // Cambia el estado a habilitado
+		 guardarDireccion(direccion);
+	 }
+ }
 
 }

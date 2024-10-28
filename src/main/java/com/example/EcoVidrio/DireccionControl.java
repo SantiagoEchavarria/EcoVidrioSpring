@@ -113,4 +113,17 @@ public class DireccionControl {
      model.addAttribute("mensaje","editar");
      return "direccionEditar";
   }
+   // Método para inhabilitar la dirección
+   @GetMapping("/inhabilitarDireccion/{id}")
+   public String inhabilitarDireccion(@PathVariable(name = "id") int id) {
+       direccionServicio.inhabilitarDireccion(id);  // Cambiar el estado de la dirección a inhabilitado
+       return "redirect:/direccionListar";
+   }
+
+   // Método para habilitar la dirección
+   @GetMapping("/habilitarDireccion/{id}")
+   public String habilitarDireccion(@PathVariable(name = "id") int id) {
+       direccionServicio.habilitarDireccion(id);  // Cambiar el estado de la dirección a habilitado
+       return "redirect:/direccionListar";
+   }
 }
