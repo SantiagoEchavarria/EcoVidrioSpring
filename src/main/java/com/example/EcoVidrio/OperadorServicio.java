@@ -38,6 +38,23 @@ public void eliminar(String cedula) {
 public boolean existeCedula(String cedula) {
     return operadorDAO.findByCedula(cedula).isPresent();  // Verifica si existe la cédula
 }
+@Override
+ public void inhabilitarOperador(String cedula) {
+	 Operador operador = consultar(cedula);
+	 if (operador != null) {
+        operador.setEstado(Estado.INHABILITADO);  // Cambia el estado a inhabilitado
+		 guardarOperador(operador);
+	 }
+ }
+
+ @Override
+ public void habilitarOperador(String cedula) {
+    Operador operador = consultar(cedula);
+	 if (operador != null) {
+        operador.setEstado(Estado.HABILITADO);  // Cambia el estado a habilitado
+		 guardarOperador(operador);
+	 }
+ }
 
 
 }

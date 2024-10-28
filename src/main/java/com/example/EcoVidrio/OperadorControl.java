@@ -105,4 +105,17 @@ public class OperadorControl {
 		model.addAttribute("mensaje","editar");
 		return "operadorEditar";
 	}
+     // Método para inhabilitar la dirección
+   @GetMapping("/inhabilitarOperador/{cedula}")
+   public String inhabilitarOperador(@PathVariable(name = "cedula") String cedula) {
+       operadorServicio.inhabilitarOperador(cedula);  // Cambiar el estado de la dirección a inhabilitado
+       return "redirect:/operadorListar";
+   }
+
+   // Método para habilitar la dirección
+   @GetMapping("/habilitarOperador/{cedula}")
+   public String habilitarOperador(@PathVariable(name = "cedula") String cedula) {
+    operadorServicio.habilitarOperador(cedula);  // Cambiar el estado de la dirección a habilitado
+       return "redirect:/operadorListar";
+   }
 }

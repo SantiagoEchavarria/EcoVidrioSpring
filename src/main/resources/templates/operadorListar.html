@@ -68,6 +68,43 @@
                 }
             });
         }
+
+        // Función para habilitar una dirección
+        function habilitarDireccion(cedula) {
+            if (confirm('¿Estás seguro de que deseas habilitar esta dirección?')) {
+                fetch(`/habilitarOperador/${cedula}`, { method: 'GET' })
+                    .then(response => {
+                        if (response.ok) {
+                            location.reload();
+                        } else {
+                            alert('Error al habilitar el Operador.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Ocurrió un error al habilitar el Operador.');
+                    });
+            }
+        }
+
+        // Función para inhabilitar una dirección
+        function inhabilitarDireccion(cedula) {
+            if (confirm('¿Estás seguro de que deseas inhabilitar esta dirección?')) {
+                fetch(`/inhabilitarOperador/${cedula}`, { method: 'GET' })
+                    .then(response => {
+                        if (response.ok) {
+                            location.reload();
+                        } else {
+                            alert('Error al inhabilitar el Operador.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Ocurrió un error al inhabilitar el Operador.');
+                    });
+            }
+        }
+
     </script>
     <link href="/css/sidebar.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
@@ -130,6 +167,7 @@
                             <th>Nombre</th>
                             <th>Apellido</th>
                             <th>Telefono</th>
+                            <th>Estado</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -139,9 +177,20 @@
                             <td th:text="${est.nombre1}"> &nbsp;</td>
                             <td th:text="${est.apellido1}"> &nbsp;</td>
                             <td th:text="${est.telefono}"> &nbsp;</td>
+                            <td th:text="${est.estado}"> &nbsp;</td>
                             <td> 
-                                <a th:href="@{/eliminarOperador/}+ ${est.cedula}" class="btn btn-danger btn-sm" 
-                                   onclick="return confirm('¿Seguro de eliminar?')">Eliminar</a>
+                                <button class="btn btn-success btn-sm" 
+                                        th:attr="data-id=${est.cedula}"
+                                        th:if="${est.estado.name() == 'INHABILITADO'}"
+                                        onclick="habilitarDireccion(this.dataset.id)">
+                                    Habilitar
+                                </button>
+                                <button class="btn btn-danger btn-sm" 
+                                        th:attr="data-id=${est.cedula}" 
+                                        th:if="${est.estado.name() == 'HABILITADO'}"
+                                        onclick="inhabilitarDireccion(this.dataset.id)">
+                                    Inhabilitar
+                                </button>
                                 <a th:href="@{/modificarOperador/} + ${est.cedula}" class="btn btn-primary btn-sm">Editar</a>
                             </td>
                         </tr>

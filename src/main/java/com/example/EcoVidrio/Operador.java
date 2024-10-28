@@ -5,6 +5,8 @@ import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -24,6 +26,10 @@ public class Operador {
     public String direccion;
     public String correoElectronico;
     
+    // Nuevo atributo para estado
+    @Enumerated(EnumType.STRING)
+    private Estado estado; // Enum para estado habilitado o inhabilitado
+    
       ///Relacion 1 a muchos
     @OneToMany (mappedBy="operador", fetch = FetchType.LAZY,
     		cascade = CascadeType.ALL) 
@@ -32,6 +38,7 @@ public class Operador {
     
  public Operador() {
 	 turnoOperarios= new ArrayList<>();
+     this.estado = Estado.HABILITADO; // Valor por defecto
 }
 
 
@@ -124,6 +131,13 @@ public void setTurnoOperarios(List<TurnoOperario> turnoOperarios) {
 
     public String getCorreoElectronico() {
         return correoElectronico;
+    }
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 
     public void setCorreoElectronico(String correoElectronico) {
