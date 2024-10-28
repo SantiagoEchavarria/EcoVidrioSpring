@@ -101,21 +101,27 @@
     <div class="content">
         <div class="form-container">
             <h2>Registrar Trituradora</h2>
+    
+            <!-- Mensaje de error -->
+            <div th:if="${error}" class="alert alert-danger text-center">
+                <p th:text="${error}"></p>
+            </div>
+    
             <form method="post" th:action="@{/insertarTrituradora}" th:object="${trituradora}">
                 <div class="form-group">
                     <label for="nombre">Nombre</label>
                     <input type="text" name="nombre" id="nombre" placeholder="Nombre" maxlength="80" class="form-control" required>
                 </div>
-
+    
                 <div class="form-group">
                     <label for="descripcion">Descripción</label>
                     <input type="text" name="descripcion" id="descripcion" placeholder="Descripción" maxlength="80" class="form-control" required>
                 </div>
-
+    
                 <div class="form-group">
                     <label for="direccionSelect">Dirección</label>
                     <select id="direccionSelect" name="direccion" class="form-select" required>
-                        <option th:each="dir:${direccion}" th:value="${dir.id}" 
+                        <option th:each="dir : ${direccion}" th:value="${dir.id}" 
                                 th:text="${dir.nombreDireccion + ' - ' + dir.ciudad.nombreCiudad + ', ' + dir.ciudad.departamento.nombreDepartamento}">
                         </option>
                     </select>
@@ -134,10 +140,10 @@
                     Formulario limpiado.
                 </div>
                 <script src="/js/limpiar.js"></script>
-                
             </form>
         </div>
     </div>
+    
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

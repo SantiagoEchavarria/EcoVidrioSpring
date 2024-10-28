@@ -1,6 +1,7 @@
 package com.example.EcoVidrio;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,11 +45,19 @@ public class TrituradoraControl {
    
     @PostMapping({"/insertarTrituradora"})
     public String insertarTrituradora(@ModelAttribute(name = "trituradora") Trituradora trituradora, 
-    Model model, SessionStatus status) {
-       this.trituradoraServicio.guardarTrituradora(trituradora);
-       status.setComplete();
-       return "redirect:/trituradoraListar";
+                                      Model model, SessionStatus status) {
+        Optional<Trituradora> existente = this.trituradoraServicio.buscarPorNombre(trituradora.getNombre());
+        
+        if (existente.isPresent()) {
+            model.addAttribute("error", "Ya existe una trituradora con este nombre.");
+            return "trituradoraInsertar";  // Asegúrate de que coincida con el nombre de la plantilla Thymeleaf
+        }
+        
+        this.trituradoraServicio.guardarTrituradora(trituradora);
+        status.setComplete();
+        return "redirect:trituradoraListar";
     }
+    
  
     @GetMapping({"/trituradoraListar"})
     public String orituradoraListar(Model model) {
