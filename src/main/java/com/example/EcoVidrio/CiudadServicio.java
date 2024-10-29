@@ -26,13 +26,18 @@ public class CiudadServicio implements CiudadInterface {
 	@Override
 	public Ciudad consultar(int id) {
 	 return ciudadDAO.findById(id).orElse(null);  
- }
- 
- @Override
- @Transactional
- public void eliminar(int id) {
-	 ciudadDAO.deleteById(id);
- }
+	}
+	
+	@Override
+	@Transactional
+	public void eliminar(int id) {
+		ciudadDAO.deleteById(id);
+	}
+
+
+	public List<Ciudad> obtenerCiudadesHabilitadasPorDepartamento(Long departamentoId) {
+        return ciudadDAO.findByDepartamentoIdAndEstado(departamentoId, Estado.HABILITADO);
+    }
 	
 
 	//inhabilitado

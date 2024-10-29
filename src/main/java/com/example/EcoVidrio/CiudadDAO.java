@@ -10,6 +10,6 @@ public interface CiudadDAO extends JpaRepository<Ciudad, Integer> {
 	Optional<Ciudad> findByNombreCiudad(String nombreCiudad); 
     void deleteByNombreCiudad(String nombreCiudad);
     List<Ciudad> findByDepartamentoId(int departamentoId);
-
-    List<Ciudad> findByEstado(Estado estado); // Agregar este método
+    List<Ciudad> findByEstado(Estado estado); 
+    List<Ciudad> findByDepartamentoIdAndEstado(Long departamentoId, Estado habilitado);
 }

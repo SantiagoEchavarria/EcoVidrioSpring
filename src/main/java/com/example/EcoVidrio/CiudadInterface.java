@@ -7,6 +7,7 @@ public interface CiudadInterface {
     List<Ciudad> listadoCiudades();
     Ciudad consultar(int id);
     void eliminar(int id);
-    void inhabilitar(int id); // Método para inhabilitar ciudad
-    void habilitarCiudad(int id); // Método para habilitar ciudad
+    void inhabilitar(int id); 
+    void habilitarCiudad(int id); 
+    List<Ciudad> obtenerCiudadesHabilitadasPorDepartamento(Long departamentoId);
 }

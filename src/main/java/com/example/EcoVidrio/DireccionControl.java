@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -21,6 +22,9 @@ public class DireccionControl {
 
    @Autowired
 	private CiudadInterface ciudadServicio;
+
+   @Autowired
+   private DepartamentoInterface departamentoServicio;
 
    @Autowired
    private DepartamentoDAO departamentoRepository;
@@ -35,15 +39,17 @@ public class DireccionControl {
    //
    @GetMapping("/direccionInsertar")
    public String mostrarFormulario(Model model) {
-       // Cargar los departamentos para mostrarlos en el select
-       List<Departamento> departamentos = departamentoRepository.findAll();
-       model.addAttribute("departamentos", departamentos);
-       
-       // Crear un nuevo objeto Dirección para el formulario
+       //List<Departamento> departamentos = departamentoRepository.findAll();
+       model.addAttribute("departamentos", departamentoServicio.obtenerDepartamentosHabilitados());
        model.addAttribute("direccion", new Direccion());
-       
-       return "direccionInsertar";  // Nombre del archivo HTML Thymeleaf
+       return "direccionInsertar";  
    }
+
+   @GetMapping("/api/ciudades/{departamentoId}")
+    @ResponseBody
+    public List<Ciudad> obtenerCiudadesHabilitadasPorDepartamento(@PathVariable Long departamentoId) {
+        return ciudadServicio.obtenerCiudadesHabilitadasPorDepartamento(departamentoId);
+    }
 
 
     @PostMapping("/guardarDireccion")
@@ -58,16 +64,6 @@ public class DireccionControl {
 
    public DireccionControl() {
    }
-/* el real
-   @GetMapping({"direccionInsertar"})
-   public String direccionInsertar(Model model) {
-       Direccion direccion = new Direccion();
-      model.addAttribute("direccion", direccion);
-      model.addAttribute("mensaje", "nuevo cireccion");
-      return "direccionInsertar";
-   }*/
-
-
 
   
    @PostMapping({"/insertarDireccion"})
