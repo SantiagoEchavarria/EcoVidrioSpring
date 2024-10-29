@@ -32,7 +32,8 @@ public class CiudadControl {
 
    @GetMapping({"ciudadInsertar"})
    public String ciudadInsertar(Model model) {
-       Ciudad ciudad = new Ciudad();
+      Ciudad ciudad = new Ciudad();
+      model.addAttribute("departamento", departamentoServicio.obtenerDepartamentosHabilitados());
       model.addAttribute("ciudad", ciudad);
       model.addAttribute("mensaje", "nuevo ciudad");
       return "ciudadInsertar";

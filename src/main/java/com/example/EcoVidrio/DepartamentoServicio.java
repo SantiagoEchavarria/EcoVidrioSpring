@@ -53,4 +53,9 @@ public class DepartamentoServicio implements DepartamentoInterface {
         departamento.setEstado(Estado.HABILITADO); // Cambiar estado a habilitado
         departamentoDAO.save(departamento); // Guardar cambios
     }
+
+    @Override
+    public List<Departamento> obtenerDepartamentosHabilitados() {
+        return departamentoDAO.findByEstado(Estado.HABILITADO);
+    }
 }
