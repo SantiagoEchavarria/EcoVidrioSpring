@@ -236,7 +236,7 @@
                                     <div class="mb-3">
                                         <label for="trituradoraSelect" class="form-label">Trituradora</label>
                                         <select id="trituradoraSelect" class="form-select" th:field="*{trituradora}" required>
-                                            <option th:each="tri:${trituradora}" th:value="${tri.idTrituradora}" th:text="${tri.nombre}"></option>
+                                            <option th:each="tri:${trituradora}" th:value="${tri.id}" th:text="${tri.nombre}"></option>
                                         </select>
                                     </div>
 

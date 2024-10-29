@@ -25,18 +25,12 @@ public class DireccionControl {
 
    @Autowired
    private DepartamentoInterface departamentoServicio;
-
-   @Autowired
-   private DepartamentoDAO departamentoRepository;
-
 	
 	@ModelAttribute("ciudad")
 	public List<Ciudad> datosCiudad(){
 		return ciudadServicio.listadoCiudades();
 	}
-
-
-   //
+   
    @GetMapping("/direccionInsertar")
    public String mostrarFormulario(Model model) {
        //List<Departamento> departamentos = departamentoRepository.findAll();
@@ -82,8 +76,6 @@ public class DireccionControl {
       return "direccionListar";
    }
 
-
-   
    //Invento Aparte
 
    @GetMapping ("/consultarDireccion/(nombreDireccion)")
