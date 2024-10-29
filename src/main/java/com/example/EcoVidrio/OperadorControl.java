@@ -42,7 +42,7 @@ public class OperadorControl {
     public String insertarOperador(@ModelAttribute(name = "operador") Operador operador, Model model, SessionStatus status) {
         if (operadorServicio.existeCedula(operador.getCedula())) {
         model.addAttribute("errorMessage", "La cédula ya existe. Por favor, ingrese una cédula única.");
-        return "operadorInsertar"; // Devuelve a la vista de inserción con el mensaje de error.
+        return "operadorInsertar"; 
     }
     
     this.operadorServicio.guardarOperador(operador);

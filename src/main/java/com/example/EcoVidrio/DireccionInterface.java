@@ -11,4 +11,5 @@ public interface DireccionInterface {
     // Nuevos métodos para inhabilitar y habilitar direcciones
     void inhabilitarDireccion(int id);
     void habilitarDireccion(int id);
+    List<Direccion> obtenerDireccionesHabilitadas();
 }

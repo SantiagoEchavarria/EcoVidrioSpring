@@ -26,29 +26,35 @@ public class DireccionServicio implements DireccionInterface {
 	@Override
 	public Direccion consultar(int nombredireccion) {
 	 return direccionDAO.findById(nombredireccion).orElse(null);  
- }
+	}
 
- @Override
- @Transactional
- public void eliminar(int id) {
-	 direccionDAO.deleteById(id);
- }
- @Override
- public void inhabilitarDireccion(int id) {
-	 Direccion direccion = consultar(id);
-	 if (direccion != null) {
-		 direccion.setEstado(Estado.INHABILITADO);  // Cambia el estado a inhabilitado
-		 guardarDireccion(direccion);
-	 }
- }
+	@Override
+	@Transactional
+	public void eliminar(int id) {
+		direccionDAO.deleteById(id);
+	}
+	@Override
+	public void inhabilitarDireccion(int id) {
+		Direccion direccion = consultar(id);
+		if (direccion != null) {
+			direccion.setEstado(Estado.INHABILITADO);  // Cambia el estado a inhabilitado
+			guardarDireccion(direccion);
+		}
+	}
 
- @Override
- public void habilitarDireccion(int id) {
-	 Direccion direccion = consultar(id);
-	 if (direccion != null) {
-		 direccion.setEstado(Estado.HABILITADO);  // Cambia el estado a habilitado
-		 guardarDireccion(direccion);
-	 }
- }
+	@Override
+	public void habilitarDireccion(int id) {
+		Direccion direccion = consultar(id);
+		if (direccion != null) {
+			direccion.setEstado(Estado.HABILITADO);  // Cambia el estado a habilitado
+			guardarDireccion(direccion);
+		}
+	}
+
+	@Override
+	public List<Direccion> obtenerDireccionesHabilitadas() {
+        return direccionDAO.findByEstado(Estado.HABILITADO);
+    }
+
 
 }

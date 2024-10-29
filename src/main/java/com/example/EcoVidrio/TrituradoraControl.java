@@ -35,7 +35,9 @@ public class TrituradoraControl {
     @GetMapping({"trituradoraInsertar"})
     public String trituradoraInsertar(Model model) {
         Trituradora trituradora = new Trituradora();
+        List<Direccion> direccionesHabilitadas = direccionServicio.obtenerDireccionesHabilitadas();
        model.addAttribute("trituradora", trituradora);
+       model.addAttribute("direccion", direccionesHabilitadas);
        model.addAttribute("mensaje", "nueva Trituradora");
        return "trituradoraInsertar";
     }

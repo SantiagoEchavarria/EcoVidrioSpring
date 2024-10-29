@@ -42,6 +42,13 @@ public class TrituradoraServicio implements TrituradoraInterface {
         return trituradoraDAO.findByNombre(nombre);
     }
 
+        
+    public List<Direccion> obtenerDireccionesHabilitadas() {
+        return trituradoraDAO.findByEstado(Estado.HABILITADO);
+    }
+
+    
+
     @Override
     public void inhabilitarTrituradora(int id) {
         Trituradora trituradora = consultar(id);
