@@ -122,15 +122,13 @@
     <div class="container">
         <h2>Listado de Trituradoras</h2>
 
-        <br>
-        <br>
+       
+        
         <div class="text-center">
-            <a th:href="@{/trituradoraInsertar}" class="btn btn-warning">Nuevo Registro</a>
+            <a th:href="@{/trituradoraInsertar}" class="btn btn-warning" th:if="${session.tipoUsuarioId == 2}">Nuevo Registro</a>
         </div>
+        <br>
 
-        <br>
-        <br>
-        <!-- Campo de búsqueda unificado -->
         <div class="mb-3">
             <input type="text" id="buscador" class="form-control" placeholder="Buscar por nombre o descripción..." onkeyup="buscarTrituradora()">
         </div>

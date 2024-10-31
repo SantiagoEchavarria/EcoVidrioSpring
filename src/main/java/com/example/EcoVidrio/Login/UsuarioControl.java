@@ -89,16 +89,18 @@ public String insertarUsuario(@ModelAttribute(name = "usuario") Usuario usuario,
    @PostMapping("/ingresarUsuario")
    public String ingresarUsuario(@ModelAttribute(name = "usuario") Usuario usuario, Model model, HttpSession session) {
        Usuario usuarioExistente = usuarioServicio.consultar(usuario.getEmail());
-   
        if (usuarioExistente != null) {
            if (usuarioExistente.getContrasena().equals(usuario.getContrasena())) {
             session.setAttribute("tipoUsuarioId", usuarioExistente.getTipoUsuario().getId());
+            session.setAttribute("usuarioEmail", usuarioExistente.getEmail());
                 if (usuarioExistente.getTipoUsuario().getId() == usuario.getTipoUsuario().getId()) {
                     if(usuario.getTipoUsuario().getId()==2){
                         System.out.println("Entro como admin");
+                        System.out.println(usuarioExistente.getEmail());
                         return "redirect:/operadorListar"; // Redirigir si todo es correcto
                     }else{
                         System.out.println("Entro como operador");
+                        System.out.println(usuarioExistente.getEmail());
                         return "redirect:/operadorListar"; // Redirigir si todo es correcto
                     }
                   

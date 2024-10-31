@@ -118,9 +118,12 @@
                             <td th:text="${est.trituradora.nombre}"> &nbsp;</td>
                             <td> 
                                 <a th:href="@{/eliminarTurnoOperario/}+ ${est.idOperario}" class="btn btn-danger btn-sm" 
-                                   onclick="return confirm('¿Seguro de eliminar?')">Eliminar</a>
-                                <a th:href="@{/modificarTurnoOperario/}+ ${est.idOperario}" class="btn btn-primary btn-sm">Editar</a>
-                            </td>
+                                   onclick="return confirm('¿Seguro de eliminar?')"
+                                    th:if="${session.tipoUsuarioId == 2}">Eliminar</a>
+                                   <a th:href="@{/modificarTurnoOperario/}+ ${est.idOperario}" class="btn btn-primary btn-sm" 
+                                   th:if="${session.tipoUsuarioId == 2 or est.operador.correoElectronico == session.usuarioEmail}">
+                                   Editar
+                                </a>                            </td>
                         </tr>
                     </tbody>
                 </table>
