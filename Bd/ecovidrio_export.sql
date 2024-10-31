@@ -1,8 +1,8 @@
--- MariaDB dump 10.19  Distrib 10.4.24-MariaDB, for Win64 (AMD64)
+-- MariaDB dump 10.19  Distrib 10.4.32-MariaDB, for Win64 (AMD64)
 --
 -- Host: localhost    Database: ecovidrio_export
 -- ------------------------------------------------------
--- Server version	10.4.24-MariaDB
+-- Server version	10.4.32-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -19,7 +19,7 @@
 -- Current Database: `ecovidrio_export`
 --
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `ecovidrio_export` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `ecovidrio_export` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 
 USE `ecovidrio_export`;
 
@@ -38,7 +38,7 @@ CREATE TABLE `ciudad` (
   PRIMARY KEY (`id`),
   KEY `fk_departamento_ciudad` (`departamento_id`),
   CONSTRAINT `fk_departamento_ciudad` FOREIGN KEY (`departamento_id`) REFERENCES `departamento` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=548 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=548 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -63,7 +63,7 @@ CREATE TABLE `departamento` (
   `nombre_departamento` varchar(100) NOT NULL,
   `estado` enum('HABILITADO','INHABILITADO') DEFAULT 'HABILITADO',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,7 +91,7 @@ CREATE TABLE `direccion` (
   PRIMARY KEY (`id`),
   KEY `fk_ciudad_direccion` (`ciudad_id`),
   CONSTRAINT `fk_ciudad_direccion` FOREIGN KEY (`ciudad_id`) REFERENCES `ciudad` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -123,7 +123,7 @@ CREATE TABLE `operador` (
   `correo_electronico` varchar(50) DEFAULT NULL,
   `estado` enum('HABILITADO','INHABILITADO') DEFAULT 'HABILITADO',
   PRIMARY KEY (`cedula`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -154,7 +154,7 @@ CREATE TABLE `resultado` (
   PRIMARY KEY (`idresultado`),
   KEY `idsensor` (`idsensor`),
   CONSTRAINT `resultado_ibfk_1` FOREIGN KEY (`idsensor`) REFERENCES `sensor` (`idsensor`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -182,7 +182,7 @@ CREATE TABLE `sensor` (
   PRIMARY KEY (`idsensor`),
   KEY `idtipo_sensor` (`idtipo_sensor`),
   CONSTRAINT `sensor_ibfk_1` FOREIGN KEY (`idtipo_sensor`) REFERENCES `tipo_sensor` (`idtipo_sensor`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -207,7 +207,7 @@ CREATE TABLE `tipo_sensor` (
   `capacidad` decimal(10,2) NOT NULL,
   `estado` enum('HABILITADO','INHABILITADO') DEFAULT 'HABILITADO',
   PRIMARY KEY (`idtipo_sensor`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -231,7 +231,7 @@ CREATE TABLE `tipo_usuario` (
   `descripcion` varchar(50) NOT NULL,
   `estado` enum('HABILITADO','INHABILITADO') DEFAULT 'HABILITADO',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -252,18 +252,18 @@ DROP TABLE IF EXISTS `trituradora`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `trituradora` (
-  `id_trituradora` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `idsensor` int(11) DEFAULT NULL,
   `descripcion` varchar(100) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `direccion_id` int(11) DEFAULT NULL,
   `estado` enum('HABILITADO','INHABILITADO') DEFAULT 'HABILITADO',
-  PRIMARY KEY (`id_trituradora`),
+  PRIMARY KEY (`id`),
   KEY `idsensor` (`idsensor`),
   KEY `fk_trituradora_direccion` (`direccion_id`),
   CONSTRAINT `fk_trituradora_direccion` FOREIGN KEY (`direccion_id`) REFERENCES `direccion` (`id`),
   CONSTRAINT `trituradora_ibfk_2` FOREIGN KEY (`idsensor`) REFERENCES `sensor` (`idsensor`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -290,7 +290,7 @@ CREATE TABLE `turno` (
   `hora_salida` time NOT NULL,
   `estado` enum('HABILITADO','INHABILITADO') DEFAULT 'HABILITADO',
   PRIMARY KEY (`idturno`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -322,9 +322,9 @@ CREATE TABLE `turno_operario` (
   KEY `fk_operador_cedula` (`operador_cedula`),
   KEY `fk_trituradora_turno_operario` (`id_trituradora`),
   CONSTRAINT `fk_operador_cedula` FOREIGN KEY (`operador_cedula`) REFERENCES `operador` (`cedula`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_trituradora_turno_operario` FOREIGN KEY (`id_trituradora`) REFERENCES `trituradora` (`id_trituradora`),
+  CONSTRAINT `fk_trituradora_turno_operario` FOREIGN KEY (`id_trituradora`) REFERENCES `trituradora` (`id`),
   CONSTRAINT `fk_turno_nombre` FOREIGN KEY (`turno_nombre`) REFERENCES `turno` (`idturno`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -354,7 +354,7 @@ CREATE TABLE `usuario` (
   UNIQUE KEY `email` (`email`),
   KEY `idtipo_usuario` (`tipo_usuario_id`),
   CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`tipo_usuario_id`) REFERENCES `tipo_usuario` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -376,4 +376,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-27 23:28:57
+-- Dump completed on 2024-10-29 15:57:58
