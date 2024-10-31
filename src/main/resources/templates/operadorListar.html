@@ -181,17 +181,19 @@
                             <td> 
                                 <button class="btn btn-success btn-sm" 
                                         th:attr="data-id=${est.cedula}"
-                                        th:if="${est.estado.name() == 'INHABILITADO'}"
-                                        onclick="habilitarDireccion(this.dataset.id)">
+                                        th:if="${est.estado.name() == 'INHABILITADO' and session.tipoUsuarioId == 2}"
+                                        onclick="habilitarDireccion(this.dataset.id)"
+                                        >
                                     Habilitar
                                 </button>
                                 <button class="btn btn-danger btn-sm" 
                                         th:attr="data-id=${est.cedula}" 
-                                        th:if="${est.estado.name() == 'HABILITADO'}"
+                                        th:if="${est.estado.name() == 'HABILITADO' and session.tipoUsuarioId == 2}"
                                         onclick="inhabilitarDireccion(this.dataset.id)">
                                     Inhabilitar
                                 </button>
-                                <a th:href="@{/modificarOperador/} + ${est.cedula}" class="btn btn-primary btn-sm">Editar</a>
+                                <a th:href="@{/modificarOperador/} + ${est.cedula}" class="btn btn-primary btn-sm" 
+                                 th:if="${session.tipoUsuarioId == 2 or session.usuarioEmail== est.correoElectronico}">Editar</a>
                             </td>
                         </tr>
                     </tbody>
