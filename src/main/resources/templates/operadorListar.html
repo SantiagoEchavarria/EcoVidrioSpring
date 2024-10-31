@@ -214,6 +214,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                             </div>
                             <div class="modal-body">
+
                                 <form method="post" th:action="@{/insertarTurnoOperario}" th:object="${turnoOperario}">
                                     
                                     <!-- Selector de Operario -->
@@ -245,8 +246,8 @@
                                         <button type="submit" class="btn btn-primary">Guardar</button>
                                         <button type="reset" class="btn btn-secondary">Limpiar</button>
                                     </div>
-
                                 </form>
+                                
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
@@ -254,10 +255,6 @@
                         </div>
                     </div>
                 </div>
-                
-
-
-
             </div>
         </div>
     </div>
