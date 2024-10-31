@@ -53,8 +53,10 @@ public class TurnoOperarioControl {
    public String turnoOperario(Model model) {
       TurnoOperario turnoOperario = new TurnoOperario();
       List<Trituradora> trituradorasHabilitadas = trituradoraervicio.obtenerTrituradorasHabilitadas();
+      List<Turno> turnosHabilitados = turnoServicio.obteneTurnosHabilitados();
       model.addAttribute("turnoOperario", turnoOperario);
       model.addAttribute("trituradora", trituradorasHabilitadas);
+      model.addAttribute("turno", turnosHabilitados);
       model.addAttribute("mensaje", "nuevo turnoOperario");
       return "turnoOperarioInsertar";
    }
