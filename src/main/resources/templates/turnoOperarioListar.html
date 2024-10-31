@@ -121,7 +121,7 @@
                                    onclick="return confirm('¿Seguro de eliminar?')"
                                     th:if="${session.tipoUsuarioId == 2}">Eliminar</a>
                                    <a th:href="@{/modificarTurnoOperario/}+ ${est.idOperario}" class="btn btn-primary btn-sm" 
-                                   th:if="${session.tipoUsuarioId == 2 or est.operador.correoElectronico == session.usuarioEmail}">
+                                   th:if="${session.tipoUsuarioId == 2">
                                    Editar
                                 </a>                            </td>
                         </tr>
