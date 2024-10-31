@@ -141,7 +141,7 @@
                             <th>Nombre</th>
                             <th>Descripción</th>
                             <th>Estado</th>
-                            <th>Acciones</th>
+                            <th  th:if="${session.tipoUsuarioId == 2}">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -149,7 +149,7 @@
                             <td th:text="${est.nombre}"> &nbsp;</td>
                             <td th:text="${est.descripcion}"> &nbsp;</td>
                             <td th:text="${est.estado}"> &nbsp;</td>
-                            <td> 
+                            <td  th:if="${session.tipoUsuarioId == 2}"> 
                                 <button class="btn btn-success btn-sm" 
                                         th:attr="data-id=${est.id}"
                                         th:if="${session.tipoUsuarioId == 2 and est.estado.name() == 'INHABILITADO'}"

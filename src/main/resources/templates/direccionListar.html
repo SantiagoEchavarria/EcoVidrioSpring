@@ -143,12 +143,9 @@
         <h2>Listado de Direcciones</h2>
 
         <br>
-        <br>
         <div class="text-center">
-            <a th:href="@{/direccionInsertar}" class="btn btn-warning">Nuevo Registro</a>
+            <a th:href="@{/direccionInsertar}" class="btn btn-warning"  th:if="${session.tipoUsuarioId == 2}">Nuevo Registro</a>
         </div>
-
-        <br>
         <br>
         <!-- Campo de búsqueda -->
         <div class="mb-3">
@@ -160,14 +157,14 @@
                 <table class="table table-striped table-bordered">
                     <thead class="table-primary">
                         <tr>
-                            <th>Acciones</th>
+                            <th  th:if="${session.tipoUsuarioId == 2}">Acciones</th>
                             <th>Nombre</th>
                             <th>Estado</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="est:${direccion}">
-                            <td> 
+                            <td  th:if="${session.tipoUsuarioId == 2}"> 
                                 <a th:href="@{/modificarDireccion/} + ${est.id}" class="btn btn-primary btn-sm">Editar</a>
                                 <button class="btn btn-success btn-sm" 
                                         th:attr="data-id=${est.id}"

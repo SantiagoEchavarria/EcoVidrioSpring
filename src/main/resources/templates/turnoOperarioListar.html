@@ -108,7 +108,7 @@
                             <th>Nombre</th>
                             <th>Turno</th>
                             <th>Trituradora</th>
-                            <th>Acciones</th>
+                            <th  th:if="${session.tipoUsuarioId == 2}">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -116,7 +116,7 @@
                             <td th:text="${est.operador.nombre1}"> &nbsp;</td>
                             <td th:text="${est.turno.nombre}"> &nbsp;</td>
                             <td th:text="${est.trituradora.nombre}"> &nbsp;</td>
-                            <td> 
+                            <td  th:if="${session.tipoUsuarioId == 2}"> 
                                 <a th:href="@{/eliminarTurnoOperario/}+ ${est.idOperario}" class="btn btn-danger btn-sm" 
                                    onclick="return confirm('¿Seguro de eliminar?')"
                                     th:if="${session.tipoUsuarioId == 2}">Eliminar</a>

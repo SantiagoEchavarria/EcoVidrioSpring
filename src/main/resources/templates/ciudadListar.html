@@ -134,12 +134,11 @@
     <div class="container">
         <h2>Listado de Ciudades</h2>
         <br>
-        
+     
         <div class="text-center">
-            <a th:href="@{/ciudadInsertar}" class="btn btn-warning">Nuevo Registro</a>
+            <a th:href="@{/ciudadInsertar}" class="btn btn-warning"  th:if="${session.tipoUsuarioId == 2}">Nuevo Registro</a>
         </div>
-
-        <br><br>
+        <br>
         <!-- Campo de búsqueda -->
         <div class="mb-3">
             <input type="text" id="buscador" class="form-control" placeholder="Buscar ciudad..." onkeyup="buscarCiudad()">
@@ -150,14 +149,14 @@
                 <table class="table table-striped table-bordered">
                     <thead class="table-primary">
                         <tr>
-                            <th>Acciones</th>
+                            <th  th:if="${session.tipoUsuarioId == 2}">Acciones</th>
                             <th>Nombre</th>
                             <th>Estado</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="est : ${ciudad}">
-                            <td>
+                            <td  th:if="${session.tipoUsuarioId == 2}">
                                 <button class="btn btn-success btn-sm" 
                                     th:attr="data-id=${est.id}"
                                     th:block th:if="${est.estado.name() == 'INHABILITADO'}"
