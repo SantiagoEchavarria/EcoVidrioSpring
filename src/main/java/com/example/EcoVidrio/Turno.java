@@ -1,4 +1,6 @@
 package com.example.EcoVidrio;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,43 +17,29 @@ import jakarta.persistence.Table;
 @Table(name = "turno")
 public class Turno {
     @Id
-    int idturno;
-    String nombre;
-    String hora_entrada;
-    String hora_salida;
-    
-    // Nuevo atributo para estado
+    private int idturno;
+    private String nombre;
+    private LocalTime hora_entrada;
+    private LocalTime hora_salida;
+
     @Enumerated(EnumType.STRING)
-    private Estado estado; // Enum para estado habilitado o inhabilitado
+    private Estado estado;
 
-      ///Relacion 1 a muchos
-    @OneToMany (mappedBy="turno", fetch = FetchType.LAZY,
-    		cascade = CascadeType.ALL) 
-    List<TurnoOperario> turnoOperarios;
+    // Relación 1 a muchos
+    @OneToMany(mappedBy = "turno", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<TurnoOperario> turnoOperarios;
 
-    
     public Turno() {
-        this.estado = Estado.HABILITADO; // Valor por defecto
-        turnoOperarios= new ArrayList<>();
+        this.estado = Estado.HABILITADO;
+        this.turnoOperarios = new ArrayList<>();
     }
 
-
-    public List<TurnoOperario> getTurnoOperario() {
-        return turnoOperarios;
-    }
-
-
-    public void setTurnoOperarios(List<TurnoOperario> turnoOperarios) {
-        this.turnoOperarios = turnoOperarios;
-    }
-
-    
-    public Turno(int idturno, String nombre, String hora_entrada, String hora_salida) {
-        
+    public Turno(int idturno, String nombre, LocalTime hora_entrada, LocalTime hora_salida) {
+        this.idturno = idturno;
         this.nombre = nombre;
         this.hora_entrada = hora_entrada;
         this.hora_salida = hora_salida;
-        this.estado = Estado.HABILITADO; // Valor por defecto
+        this.estado = Estado.HABILITADO;
     }
 
     public int getIdturno() {
@@ -71,25 +59,34 @@ public class Turno {
     }
 
     public String getHora_entrada() {
-        return hora_entrada;
+        return hora_entrada.format(DateTimeFormatter.ofPattern("HH:mm"));
     }
 
-    public void setHora_entrada(String hora_entrada) {
+    public void setHora_entrada(LocalTime hora_entrada) {
         this.hora_entrada = hora_entrada;
     }
 
     public String getHora_salida() {
-        return hora_salida;
+        return hora_salida.format(DateTimeFormatter.ofPattern("HH:mm"));
     }
 
-    public void setHora_salida(String hora_salida) {
+    public void setHora_salida(LocalTime hora_salida) {
         this.hora_salida = hora_salida;
     }
+
     public Estado getEstado() {
         return estado;
     }
 
     public void setEstado(Estado estado) {
         this.estado = estado;
+    }
+
+    public List<TurnoOperario> getTurnoOperario() {
+        return turnoOperarios;
+    }
+
+    public void setTurnoOperarios(List<TurnoOperario> turnoOperarios) {
+        this.turnoOperarios = turnoOperarios;
     }
 }
