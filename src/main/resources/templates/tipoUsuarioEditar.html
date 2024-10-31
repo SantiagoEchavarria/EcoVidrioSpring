@@ -37,16 +37,16 @@
 </head>
 <body>
     <div class="container">
-        <h2>Insertar tipo de usuarios</h2>
+        <h2>Insertar tipo de usuario</h2>
         <form method="post" th:action="@{/insertarTipoUsuario}" th:object="${tipoUsuario}">
+            <!-- Campo oculto para el ID -->
+            <input type="hidden" th:field="*{id}" />
+
             <div class="mb-3">
                 <label for="descripcion" class="form-label">Nombre</label>
                 <input type="text" name="descripcion" id="descripcion" placeholder="Nombre" 
-                       maxlength="80" class="form-control" th:value="${tipoUsuario.descripcion}" required>
+                       maxlength="80" class="form-control" th:field="*{descripcion}" required>
             </div>
-            <div class="mb-3">
-               
-
             <div class="d-grid gap-2">
                 <input type="submit" onclick="return validarFormulario();" value="Guardar" class="btn btn-primary">
             </div>
