@@ -51,4 +51,9 @@ public void habilitarTurno(int id) {
     }
 }
 
+@Override
+public List<Turno> obteneTurnosHabilitados() {
+  return turnoDAO.findByEstado(Estado.HABILITADO);
+}
+
 }

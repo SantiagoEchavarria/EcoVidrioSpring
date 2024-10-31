@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface TurnoDAO extends JpaRepository<Turno, Integer>{
     Optional<Turno> findByNombre(String nombre); 
     void deleteByNombre(String nombre);
-    // Agregar este método para buscar direcciones por estado
-    List<Direccion> findByEstado(Estado estado);
+    List<Turno> findByEstado(Estado estado);
 
 } 

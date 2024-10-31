@@ -58,18 +58,15 @@ public class OperadorControl {
        TurnoOperario turnoOperario = new TurnoOperario();
        session.setAttribute("turnoOperario", turnoOperario);
        model.addAttribute("turnoOperario", turnoOperario);
-
        model.addAttribute("trituradora", trituradoraServicio.obtenerTrituradorasHabilitadas()); 
        model.addAttribute("turnoOperario", new TurnoOperario()); 
        model.addAttribute("direccion", direccionServicio.obtenerDireccionesHabilitadas());
-       model.addAttribute("turno", turnoServicio.listadoTurnos());
+       model.addAttribute("turno", turnoServicio.obteneTurnosHabilitados());
        model.addAttribute("operador", operador);
        model.addAttribute("mensaje", "Listado de Operadores");
        return "operadorListar";
     }
     
-
-
 
     
     //Invento Aparte
