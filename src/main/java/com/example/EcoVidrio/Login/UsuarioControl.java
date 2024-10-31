@@ -97,11 +97,11 @@ public String insertarUsuario(@ModelAttribute(name = "usuario") Usuario usuario,
                     if(usuario.getTipoUsuario().getId()==2){
                         System.out.println("Entro como admin");
                         System.out.println(usuarioExistente.getEmail());
-                        return "redirect:/operadorListar"; // Redirigir si todo es correcto
+                        return "redirect:/operadorListar"; 
                     }else{
-                        System.out.println("Entro como operador");
+                        System.out.println("Entro como operador u otro");
                         System.out.println(usuarioExistente.getEmail());
-                        return "redirect:/operadorListar"; // Redirigir si todo es correcto
+                        return "redirect:/operadorListar"; 
                     }
                   
                } else {

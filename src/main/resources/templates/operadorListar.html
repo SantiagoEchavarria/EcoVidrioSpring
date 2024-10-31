@@ -148,7 +148,8 @@
         <br>
         <br>
         <div class="text-center">
-            <a th:href="@{/operadorInsertar}" class="btn btn-warning">Nuevo Registro</a>
+            <a th:href="@{/operadorInsertar}" class="btn btn-warning"
+            th:if="${session.tipoUsuarioId == 2}">Nuevo Registro</a>
         </div>
 
         <br>

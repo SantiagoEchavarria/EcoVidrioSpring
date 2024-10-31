@@ -39,7 +39,7 @@
     <script src="/js/validacionOperadorEditar.js"></script>
     <div class="container">
         <h2>Editar Operador</h2>
-        <form method="post" th:action="@{/insertarOperador}" th:object="${operador}">
+        <form method="post" th:action="@{/insertar}" th:object="${operador}">
             <div class="mb-3">
                 <label for="nombre1" class="form-label">Primer Nombre</label>
                 <input type="text" name="nombre1" id="nombre1" placeholder="Primer nombre" 
