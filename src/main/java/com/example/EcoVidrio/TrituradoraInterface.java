@@ -11,4 +11,5 @@ public interface TrituradoraInterface {
     void inhabilitarTrituradora(int id);
     void habilitarTrituradora(int id);
     Optional<Trituradora> buscarPorNombre(String nombre);
+    List<Trituradora> obtenerTrituradorasHabilitadas();
 } 

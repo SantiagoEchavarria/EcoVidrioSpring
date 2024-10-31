@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 @Repository
 public interface TrituradoraDAO extends JpaRepository<Trituradora, Integer>{
-    List<Direccion> findByEstado(Estado estado);
+    List<Trituradora> findByEstado(Estado estado);
     Optional<Trituradora> findByNombre(String nombre);
 
 } 

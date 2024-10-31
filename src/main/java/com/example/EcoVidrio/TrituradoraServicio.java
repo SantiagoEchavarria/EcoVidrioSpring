@@ -43,7 +43,7 @@ public class TrituradoraServicio implements TrituradoraInterface {
     }
 
         
-    public List<Direccion> obtenerDireccionesHabilitadas() {
+    public List<Trituradora> obtenerTrituradorasHabilitadas() {
         return trituradoraDAO.findByEstado(Estado.HABILITADO);
     }
 

@@ -51,8 +51,10 @@ public class TurnoOperarioControl {
 
     @GetMapping({"turnoOperarioInsertar"})
    public String turnoOperario(Model model) {
-       TurnoOperario turnoOperario = new TurnoOperario();
+      TurnoOperario turnoOperario = new TurnoOperario();
+      List<Trituradora> trituradorasHabilitadas = trituradoraervicio.obtenerTrituradorasHabilitadas();
       model.addAttribute("turnoOperario", turnoOperario);
+      model.addAttribute("trituradora", trituradorasHabilitadas);
       model.addAttribute("mensaje", "nuevo turnoOperario");
       return "turnoOperarioInsertar";
    }
