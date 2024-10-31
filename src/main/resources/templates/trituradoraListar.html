@@ -154,18 +154,21 @@
                             <td> 
                                 <button class="btn btn-success btn-sm" 
                                         th:attr="data-id=${est.id}"
-                                        th:if="${est.estado.name() == 'INHABILITADO'}"
+                                        th:if="${session.tipoUsuarioId == 2 and est.estado.name() == 'INHABILITADO'}"
                                         onclick="habilitarTrituradora(this.dataset.id)">
                                     Habilitar
                                 </button>
                                 <button class="btn btn-danger btn-sm" 
                                         th:attr="data-id=${est.id}" 
-                                        th:if="${est.estado.name() == 'HABILITADO'}"
+                                        th:if="${session.tipoUsuarioId == 2 and est.estado.name() == 'HABILITADO'}"
                                         onclick="inhabilitarTrituradora(this.dataset.id)">
                                     Inhabilitar
                                 </button>
-                                   <a th:href="@{/modificarTrituradora/}+${est.id}" class="btn btn-primary btn-sm">Editar</a>
-                            </td>
+                                <a th:href="@{/modificarTrituradora/}+${est.id}" 
+                                class="btn btn-primary btn-sm" 
+                                th:if="${session.tipoUsuarioId == 2}">
+                                 Editar
+                             </a>                            </td>                            
                         </tr>
                     </tbody>
                 </table>

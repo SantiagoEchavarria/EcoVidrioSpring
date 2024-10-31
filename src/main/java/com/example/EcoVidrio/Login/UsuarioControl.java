@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import jakarta.servlet.http.HttpSession;
+
 
 
 
@@ -85,13 +87,21 @@ public String insertarUsuario(@ModelAttribute(name = "usuario") Usuario usuario,
 
 
    @PostMapping("/ingresarUsuario")
-   public String ingresarUsuario(@ModelAttribute(name = "usuario") Usuario usuario, Model model) {
+   public String ingresarUsuario(@ModelAttribute(name = "usuario") Usuario usuario, Model model, HttpSession session) {
        Usuario usuarioExistente = usuarioServicio.consultar(usuario.getEmail());
    
        if (usuarioExistente != null) {
            if (usuarioExistente.getContrasena().equals(usuario.getContrasena())) {
-               if (usuarioExistente.getTipoUsuario().getId() == usuario.getTipoUsuario().getId()) {
-                   return "redirect:/operadorInsertar"; // Redirigir si todo es correcto
+            session.setAttribute("tipoUsuarioId", usuarioExistente.getTipoUsuario().getId());
+                if (usuarioExistente.getTipoUsuario().getId() == usuario.getTipoUsuario().getId()) {
+                    if(usuario.getTipoUsuario().getId()==2){
+                        System.out.println("Entro como admin");
+                        return "redirect:/operadorListar"; // Redirigir si todo es correcto
+                    }else{
+                        System.out.println("Entro como operador");
+                        return "redirect:/operadorListar"; // Redirigir si todo es correcto
+                    }
+                  
                } else {
                    model.addAttribute("error", "Tipo de usuario incorrecto.");
                }
@@ -101,9 +111,7 @@ public String insertarUsuario(@ModelAttribute(name = "usuario") Usuario usuario,
        } else {
            model.addAttribute("error", "No existe el usuario.");
        }
-   
-       // Si hay un error, volver a la vista del formulario
-       return "usuarioIngresar"; // Nombre de tu vista HTML
+       return "usuarioIngresar"; 
    }
    
 

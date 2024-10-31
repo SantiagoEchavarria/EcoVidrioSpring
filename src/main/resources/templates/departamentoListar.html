@@ -125,6 +125,7 @@
             }
         }
     </script>
+    <script src="/js/filtrarDepartamentos.js"></script>
 </head>
 <body>
     <div class="sidebar">
@@ -151,6 +152,13 @@
         <div class="mb-3">
             <input type="text" id="buscador" class="form-control" placeholder="Buscar departamento..." onkeyup="buscarDepartamento()">
         </div>
+        <!-- 
+        <div class="form-check form-switch mb-3">
+            <input class="form-check-input" type="checkbox" id="switch-departamentos" onchange="filtrarDepartamentos()">
+            <label class="form-check-label" for="switch-departamentos">Mostrar solo departamentos habilitados</label>
+        </div>
+        -->
+        
 
         <div class="row justify-content-center">
             <div class="col-lg-10">
@@ -162,8 +170,10 @@
                             <th>Estado</th>
                         </tr>
                     </thead>
+
                     <tbody>
-                        <tr th:each="est:${departamento}">
+                        <tr th:each="est:${departamento}" 
+                            th:classappend="${est.estado == 'INHABILITADO'} ? 'inhabilitado'">
                             <td>
                                 <button class="btn btn-success btn-sm" 
                                         th:attr="data-id=${est.id}"
@@ -178,12 +188,12 @@
                                     Inhabilitar
                                 </button>
                                 <a th:href="@{/modificarDepartamento/{id}(id=${est.id})}" class="btn btn-primary btn-sm">Editar</a>
-                               
                             </td>
                             <td th:text="${est.nombreDepartamento}"> &nbsp;</td>
                             <td th:text="${est.estado}"> &nbsp;</td>
                         </tr>
                     </tbody>
+                    
                 </table>
             </div>
         </div>
