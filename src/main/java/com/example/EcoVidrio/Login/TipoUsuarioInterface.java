@@ -8,4 +8,5 @@ public interface TipoUsuarioInterface {
     List<TipoUsuario> listadoTipoUsuarios();
     public TipoUsuario consultar(int id);
 	public void eliminar(int id);
+    boolean existenUsuariosAsociados(int idtipoUsuario);
 }
