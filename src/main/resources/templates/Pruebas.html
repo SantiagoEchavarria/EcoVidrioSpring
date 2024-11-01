@@ -8,16 +8,13 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/css/FormatoA.css" />
-
-
+    <link rel="stylesheet" href="/src/main/resources/static/css/Prueba.css" />
     
   </head>
   <body>
     <div class="container">
       <form  method="post" th:action="@{/ingresarUsuario}" th:object="${usuario}">
         <h1>Ingresar</h1>
-        <br>
         <!-- Mensaje de error -->
         <div class="alert alert-danger" th:if="${error}" role="alert">
           <span th:text="${error}">Error: Mensaje de error aquí.</span>
@@ -34,7 +31,7 @@
         <div class="input-box">
             <label for="tipoUsuario" class="form-label">Tipo de Usuario</label> <select th:field="*{tipoUsuario}" class="form-select" required> <option value="" disabled selected>Seleccione un tipo de usuario</option><option th:each="cat:${tipoUsuario}" th:value="${cat.id}" th:text="${cat.descripcion}"></option> </select>
         </div>
-        <br>
+
         <div class="remember-forgot">
           <a href="/usuarioRecuperarContrasena">Olvidé la contraseña</a>
         </div>
