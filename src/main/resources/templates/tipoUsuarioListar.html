@@ -87,7 +87,11 @@
 
     <div class="container">
         <h2>Listado de Turnos</h2>
-
+        <br>
+        <div class="text-center">
+            <a th:href="@{/tipoUsuarioInsertar}" class="btn btn-warning">Nuevo Registro</a>
+        </div>
+        <br>
         <!-- Campo de búsqueda unificado -->
         <div class="mb-3">
             <input type="text" id="buscador" class="form-control" placeholder="Buscar por nombre, hora de entrada o hora de salida..." onkeyup="buscarTurno()">
@@ -114,9 +118,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <div class="text-center">
-                    <a th:href="@{/tipoUsuarioInsertar}" class="btn btn-warning">Nuevo Registro</a>
-                </div>
+                
             </div>
         </div>
     </div>
