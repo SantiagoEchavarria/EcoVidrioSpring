@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -68,22 +69,21 @@ public class UsuarioControl {
 
 
   
-   @PostMapping({"/insertarUsuario"})
-public String insertarUsuario(@ModelAttribute(name = "usuario") Usuario usuario,  Model model, SessionStatus status) {
-    // Verificar si el usuario ya existe
-    if (usuarioServicio.consultar(usuario.getEmail()) != null) {
-        model.addAttribute("error", "El correo electrónico ya está registrado.");
-        return "usuarioInsertar"; // Volver al formulario de inserción
+    @PostMapping({"/insertarUsuario"})
+    public String insertarUsuario(@ModelAttribute(name = "usuario") Usuario usuario, Model model, RedirectAttributes redirectAttributes) {
+        // Verificar si el usuario ya existe
+        if (usuarioServicio.consultar(usuario.getEmail()) != null) {
+            redirectAttributes.addFlashAttribute("error", "El correo electrónico ya está registrado.");
+            return "redirect:usuarioInsertar"; // Redirigir al formulario de inserción
+        }
+        
+        // Si no existe, guardar el usuario
+        usuarioServicio.guardarUsuario(usuario);
+        // Establecer un mensaje de éxito
+        redirectAttributes.addFlashAttribute("success", "Usuario creado con éxito.");
+        return "redirect:/usuarioInsertar"; // Redirigir después de insertar
     }
-    
-    // Si no existe, guardar el usuario
-    this.usuarioServicio.guardarUsuario(usuario);
-    status.setComplete();
-     // Establecer un mensaje de éxito
-     model.addAttribute("success", true);
-     model.addAttribute("mensaje", "Usuario creado con éxito.");
-    return "redirect:usuarioInsertar"; // Redirigir después de insertar
-}
+
 
 
    @PostMapping("/ingresarUsuario")

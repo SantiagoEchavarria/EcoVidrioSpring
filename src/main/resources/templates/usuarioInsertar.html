@@ -1,156 +1,54 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <title>Crear nuevo Usuario</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f0f4f8;
-            font-family: 'Arial', sans-serif;
-        }
-        .container {
-            margin-top: 100px;
-        }
-        .form-container {
-            background-color: #ffffff;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s;
-        }
-        .form-container:hover {
-            transform: scale(1.02);
-        }
-        .form-header {
-            font-size: 30px;
-            font-weight: bold;
-            margin-bottom: 30px;
-            text-align: center;
-            color: #007bff;
-        }
-        .btn {
-            width: 100%;
-            border-radius: 5px;
-            margin-top: 15px;
-            transition: background-color 0.3s;
-        }
-        .btn-primary {
-            background-color: #007bff;
-            border: none;
-        }
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
-        .btn-success {
-            background-color: #28a745;
-            border: none;
-        }
-        .btn-success:hover {
-            background-color: #218838;
-        }
-        .btn-secondary {
-            background-color: #6c757d;
-            border: none;
-        }
-        .btn-secondary:hover {
-            background-color: #5a6268;
-        }
-        .form-label {
-            font-weight: 600;
-            color: #333;
-        }
-        .form-control, .form-select {
-            border-radius: 5px;
-        }
-        .form-control:focus, .form-select:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-        }
-        .footer-text {
-            text-align: center;
-            margin-top: 20px;
-            color: #555;
-        }
-    </style>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"  rel="stylesheet" />
+    <link rel="stylesheet" href="/css/FormatoA.css" />
+<style>
+     .container h1 {
+    font-size: 36px;
+    text-align: center;
+  }
+</style>
 </head>
 <body>
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-sm-12 col-md-8 col-lg-6">
-                <div class="form-container">
-                    <div class="form-header">Crear nuevo Usuario</div>
-                    <form method="post" th:action="@{/insertarUsuario}" th:object="${usuario}">
-                        <div class="mb-4">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" name="email" id="email" placeholder="Email" maxlength="80" class="form-control" required>
-                        </div>
-                        <div class="mb-4">
-                            <label for="contrasena" class="form-label">Contraseña</label>
-                            <input type="password" name="contrasena" id="contrasena" placeholder="Contraseña" maxlength="80" class="form-control" required>
-                        </div>
-                        <div class="mb-4">
-                            <label for="tipoUsuario" class="form-label">Tipo de Usuario</label>
-                            <select th:field="*{tipoUsuario}" class="form-select" required>
-                                <option value="" disabled selected>Seleccione un tipo de usuario</option>
-                                <option th:each="cat:${tipoUsuario}" th:value="${cat.id}" th:text="${cat.descripcion}"></option>
-                            </select>
-                        </div>
-                        <div>
-                            <input type="submit" value="Guardar" class="btn btn-primary" id="submitBtn">
-                            <a href="/usuarioIngresar" class="btn btn-success">Ya tengo una cuenta</a>
-                            <button type="reset" class="btn btn-secondary" id="clearBtn">Limpiar</button>
-                        </div>
-                        <div th:if="${error}" class="alert alert-danger" role="alert" style="margin-top: 10px;">
-                            <p th:text="${error}"></p>
-                        </div>
-                        <div id="message" class="alert alert-info" style="display: none; margin-top: 10px;">
-                            Formulario limpiado.
-                        </div>
-                        <div id="successMessage" class="alert alert-success" style="display: none; margin-top: 10px;">
-                            Usuario creado con éxito.
-                        </div>
-                        
-                    </form>
-                </div>
-                <div class="footer-text">
-                    <p>&copy; 2024 Todos los derechos reservados.</p>
-                </div>
+        <form method="post" th:action="@{/insertarUsuario}" th:object="${usuario}">
+            <h1>Crear nuevo Usuario</h1>
+               
+            <!-- Mensaje de éxito -->
+             <div th:if="${success}" class="alert alert-success" role="alert">
+                <span th:text="${success}"></span>
+             </div>
+
+             <!-- Mensaje de error -->
+             <div th:if="${error}" class="alert alert-danger" role="alert">
+                <span th:text="${error}"></span>
+             </div>
+
+
+            <div class="input-box">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" name="email" id="email" placeholder="Email" maxlength="80" class="form-control" required>
             </div>
-        </div>
+            <div class="input-box">
+                <label for="contrasena" class="form-label">Contraseña</label>
+                <input type="password" name="contrasena" id="contrasena" placeholder="Contraseña" maxlength="80" class="form-control" required>
+            </div>
+            <div class="input-box">
+                 <label for="tipoUsuario" class="form-label">Tipo de Usuario</label>
+                 <select th:field="*{tipoUsuario}" class="form-select" required>
+                    <option value="" disabled selected>Seleccione un tipo de usuario</option>
+                    <option th:each="cat:${tipoUsuario}" th:value="${cat.id}" th:text="${cat.descripcion}"></option>
+                 </select>
+            </div>
+            <br>
+            <button type="submit" value="Guardar" class="btn">Crear</button>
+
+            <div class="register-link">
+                <p>Si ya tienes unas cuenta <a href="/usuarioIngresar">Inicia seccion aqui</a></p>
+            </div>
+        </form>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-    const successMessage = document.getElementById("successMessage");
-    const errorMessage = document.getElementById("errorMessage");
-
-    // Mostrar mensaje de éxito si existe un flag en el modelo
-    // Usa el flag del backend
-    if (successFlag) {
-        successMessage.style.display = "block";
-    }
-
-    // Manejo de errores
-    if (errorMessage) {
-        errorMessage.style.display = "block";
-        setTimeout(() => {
-            errorMessage.style.display = "none";
-        }, 3000);
-    }
-
-    // Limpiar el formulario y mostrar mensaje
-    const clearBtn = document.getElementById("clearBtn");
-    clearBtn.addEventListener("click", function() {
-        const form = clearBtn.closest("form");
-        form.reset();
-        successMessage.style.display = "none"; // Ocultar mensaje de éxito
-        errorMessage.style.display = "none"; // Ocultar mensaje de error
-        const message = document.getElementById("message");
-        message.style.display = "block";
-        setTimeout(() => {
-            message.style.display = "none";
-        }, 3000);
-    });
-});
-    </script>
 </body>
 </html>
