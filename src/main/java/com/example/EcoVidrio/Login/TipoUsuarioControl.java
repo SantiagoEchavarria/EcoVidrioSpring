@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
@@ -45,7 +46,7 @@ public class TipoUsuarioControl {
     public String tipoUsuarioListar(Model model) {
        List<TipoUsuario> tipoUsuario = this.tipoUsuarioSerivicio.listadoTipoUsuarios();
        model.addAttribute("tipoUsuario", tipoUsuario);
-       model.addAttribute("mensaje", "Listado de TipoUsuarios");
+       //model.addAttribute("mensaje", "Listado de TipoUsuarios");
        return "tipoUsuarioListar";
     }
 
@@ -68,13 +69,28 @@ public class TipoUsuarioControl {
          model.addAttribute("mensaje","tipoUsuario");
          return "redirect:/tipoUsuarioListar";
      }
- 
+    
+   
+     @GetMapping("/eliminartipoUsuario/{id}")
+     public String eliminar(@PathVariable(name = "id") int idtipoUsuario, RedirectAttributes redirectAttributes) {
+         // Verifica si hay usuarios asociados a este tipo de usuario
+         if (tipoUsuarioSerivicio.existenUsuariosAsociados(idtipoUsuario)) {
+             redirectAttributes.addFlashAttribute("mensaje", "No se puede eliminar: Hay usuarios asociados a este tipo de usuario.");
+             return "redirect:/tipoUsuarioListar"; // Redirige con un mensaje de error
+         }
+     
+         tipoUsuarioSerivicio.eliminar(idtipoUsuario);
+         redirectAttributes.addFlashAttribute("mensaje", "Tipo de usuario eliminado exitosamente.");
+         return "redirect:/tipoUsuarioListar";
+     }
+
+ /* 
      @GetMapping("/eliminartipoUsuario/{id}")
      public String eliminar (@PathVariable(name="id") int idtipoUsuario, Model model) {
          //Turista turista = turistaServicio.consultar(id);
          tipoUsuarioSerivicio.eliminar(idtipoUsuario);
          return "redirect:/tipoUsuarioListar";
-     }
+     }*/
  
      @GetMapping("/modificartipoUsuario/{id}")
      public String modificar (@PathVariable(name="id")int idtipoUsuario,Model model) {

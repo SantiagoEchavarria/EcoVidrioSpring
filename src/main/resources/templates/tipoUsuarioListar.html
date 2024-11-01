@@ -1,6 +1,6 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Turnos</title>
+    <title>Gestion Tipo de Usuarios</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -78,20 +78,17 @@
         <a href="/operadorListar">Gestion Operador</a>
         <a href="/turnoListar">Gestion Turno</a>
         <a href="/trituradoraListar">Gestion Trituradora</a>
-        <a href="/ciudadListar">Gestion Ciudad</a>
+        <a href="/tipoUsuarioListar" th:if="${session.tipoUsuarioId == 2}">Gestion Tipo de Usuario</a>
+        <a href="/usuarioListar" th:if="${session.tipoUsuarioId == 2}">Gestion Usuarios</a>
         <a href="/departamentoListar">Gestion Departamento</a>
+        <a href="/ciudadListar">Gestion Ciudad</a>
         <a href="/direccionListar">Gestion Dirección</a>
-        <a href="/tipoUsuarioListar" th:if="${session.tipoUsuarioId==2}">Gestion Tipo de Usuario</a>
         <a href="/usuarioIngresar">Salir</a>
     </div>
 
     <div class="container">
-        <h2>Listado de Turnos</h2>
-        <br>
-        <div class="text-center">
-            <a th:href="@{/tipoUsuarioInsertar}" class="btn btn-warning">Nuevo Registro</a>
-        </div>
-        <br>
+        <h2>Gestion Tipo de Usuarios</h2>
+
         <!-- Campo de búsqueda unificado -->
         <div class="mb-3">
             <input type="text" id="buscador" class="form-control" placeholder="Buscar por nombre, hora de entrada o hora de salida..." onkeyup="buscarTurno()">
@@ -116,6 +113,12 @@
                                 <a th:href="@{/modificartipoUsuario/}+ ${est.id}" class="btn btn-primary btn-sm">Editar</a>
                             </td>
                         </tr>
+                        
+                        <div th:if="${mensaje}" class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <span th:text="${mensaje}"></span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        
                     </tbody>
                 </table>
                 

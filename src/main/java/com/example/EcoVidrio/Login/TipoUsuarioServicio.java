@@ -10,6 +10,8 @@ import jakarta.transaction.Transactional;
 public class TipoUsuarioServicio implements TipoUsuarioInterface{
     @Autowired
 	private TipoUsuarioDAO tipoUsuarioDAO;
+    @Autowired
+    private UsuarioDAO usuarioDAO;
 
     public TipoUsuarioServicio(){
 
@@ -35,5 +37,10 @@ public class TipoUsuarioServicio implements TipoUsuarioInterface{
     public void eliminar(int id) {
        tipoUsuarioDAO.deleteById(id);
     }
+
+    public boolean existenUsuariosAsociados(int idTipoUsuario) {
+        return !usuarioDAO.findByTipoUsuarioId(idTipoUsuario).isEmpty();
+    }
+    
     
 }

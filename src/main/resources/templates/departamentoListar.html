@@ -134,10 +134,11 @@
         <a href="/operadorListar">Gestion Operador</a>
         <a href="/turnoListar">Gestion Turno</a>
         <a href="/trituradoraListar">Gestion Trituradora</a>
-        <a href="/ciudadListar">Gestion Ciudad</a>
+        <a href="/tipoUsuarioListar" th:if="${session.tipoUsuarioId == 2}">Gestion Tipo de Usuario</a>
+        <a href="/usuarioListar" th:if="${session.tipoUsuarioId == 2}">Gestion Usuarios</a>
         <a href="/departamentoListar">Gestion Departamento</a>
+        <a href="/ciudadListar">Gestion Ciudad</a>
         <a href="/direccionListar">Gestion Dirección</a>
-        <a href="/tipoUsuarioListar" th:if="${session.tipoUsuarioId==2}">Gestion Tipo de Usuario</a>
         <a href="/usuarioIngresar">Salir</a>
     </div>
 
