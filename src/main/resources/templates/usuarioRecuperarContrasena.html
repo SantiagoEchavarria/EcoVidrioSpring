@@ -1,7 +1,7 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
-    <title>Recuperar contrasena</title>
+    <title>Recuperar contraseña</title>
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"  rel="stylesheet" />
     <link rel="stylesheet" href="/css/FormatoA.css" />
 
@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <form method="post" th:action="@{/recuperarUsuario}" th:object="${usuario}">
-            <h1>Recuperar contrasena</h1>
+            <h1>Recuperar contraseña</h1>
             <!-- Mensajes de error y éxito -->
             <div th:if="${mensaje}" class="alert alert-success" style="margin-top: 10px;">
                 <p th:text="${mensaje}"></p>
