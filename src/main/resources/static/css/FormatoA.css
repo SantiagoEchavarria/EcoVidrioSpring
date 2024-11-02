@@ -10,7 +10,7 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url(https://c.wallhere.com/photos/da/70/digital_art_landscape_illustration_skyline-2285476.jpg!d) no-repeat;
+    background: url(https://images.unsplash.com/photo-1505009258427-29298f4dc5f6?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8dGV4dHVyYSUyMGRlJTIwdmlkcmlvJTIwcm90b3xlbnwwfHwwfHx8MA%3D%3D) no-repeat;
     background-size: cover;
     background-position: center;
     #credits {position: fixed; bottom: 10px; right: 10px; color: rgb(255, 255, 255); font-size: 12px; font-family: Arial, sans-serif;}
