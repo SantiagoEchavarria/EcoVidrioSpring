@@ -1,9 +1,10 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
 
-const char* ssid = "INTELRED_GOMEZ2";  // Reemplaza con tu nombre de red WiFi
-const char* password = "Hnbwpgl2";  // Reemplaza con tu contraseña WiFi
-const char* serverUrl = "http://192.168.100.16:8080/api/peso";  // Ajusta la IP y puerto del servidor
+const char* ssid = "INTELRED_GOMEZ2";  // Nombre de red WiFi
+const char* password = "Hnbwpgl2";  // Contraseña WiFi
+const char* serverUrlVerificar = "http://192.168.100.16:8080/api/verificarSolicitud";
+const char* serverUrlPeso = "http://192.168.100.16:8080/api/peso";
 
 WiFiClient client;
 
@@ -22,23 +23,22 @@ void setup() {
 void loop() {
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
-    http.begin(client, serverUrl);
-    
-    // Establece el Content-Type a application/json
-    http.addHeader("Content-Type", "application/json");
+    http.begin(client, serverUrlVerificar);
 
-    // Ejemplo de valor del peso
-    float peso = 25.5;
-    String jsonPayload = "{\"idsensor\": 2, \"peso\": " + String(peso) + ", \"alertas\": \"\"}";
+    // Realiza la solicitud GET para verificar si se ha solicitado el peso
+    int httpResponseCode = http.GET();
 
-    // Realiza la solicitud POST con el payload JSON
-    int httpResponseCode = http.POST(jsonPayload);
-
-    if (httpResponseCode > 0) {
+    if (httpResponseCode == 200) {
       String response = http.getString();
-      Serial.println("Respuesta del servidor: " + response);
+      if (response == "true") {
+        Serial.println("Solicitud de peso recibida, se procederá a enviar el peso.");
+        http.end();
+        enviarPeso();  // Llama a la función para enviar el peso
+      } else {
+        Serial.println("No se solicitó la lectura del peso.");
+      }
     } else {
-      Serial.print("Error en la conexión: ");
+      Serial.print("Error en la conexión al verificar solicitud: ");
       Serial.println(httpResponseCode);
     }
 
@@ -53,5 +53,30 @@ void loop() {
     Serial.println("\nConectado a WiFi");
   }
 
-  delay(60000);
+  delay(5000); // Verificar cada 5 segundos
+}
+
+void enviarPeso() {
+  if (WiFi.status() == WL_CONNECTED) {
+    HTTPClient http;
+    http.begin(client, serverUrlPeso);
+    http.addHeader("Content-Type", "application/json");
+
+    // Ejemplo de valor del peso
+    float peso = 25.5;
+    String jsonPayload = "{\"idsensor\": 2, \"peso\": " + String(peso) + ", \"alertas\": \"\"}";
+
+    // Realiza la solicitud POST con el payload JSON
+    int httpResponseCode = http.POST(jsonPayload);
+
+    if (httpResponseCode > 0) {
+      String response = http.getString();
+      Serial.println("Respuesta del servidor al enviar peso: " + response);
+    } else {
+      Serial.print("Error en la conexión al enviar peso: ");
+      Serial.println(httpResponseCode);
+    }
+
+    http.end();
+  }
 }

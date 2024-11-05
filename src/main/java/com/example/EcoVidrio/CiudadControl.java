@@ -15,6 +15,12 @@ import org.springframework.web.bind.support.SessionStatus;
 @Controller
 @SessionAttributes({"ciudad"})
 public class CiudadControl {
+
+
+
+
+
+
    @Autowired
    private CiudadInterface ciudadServicio;
    

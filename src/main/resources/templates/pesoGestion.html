@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Solicitar Peso</title>
+</head>
+<body>
+    <button id="solicitarPesoBtn">Solicitar Peso</button>
+
+    <script>
+        document.getElementById("solicitarPesoBtn").addEventListener("click", function() {
+            fetch('http://192.168.100.16:8080/api/solicitarPeso', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            }).then(response => response.text())
+              .then(data => console.log(data))
+              .catch((error) => {
+                console.error('Error:', error);
+              });
+        });
+    </script>
+</body>
+</html>
