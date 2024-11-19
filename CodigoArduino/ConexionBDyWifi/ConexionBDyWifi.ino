@@ -1,10 +1,14 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
+#include <Adafruit_TCS34725.h>
 
 const char* ssid = "INTELRED_GOMEZ2";  // Nombre de red WiFi
 const char* password = "Hnbwpgl2";  // Contraseña WiFi
 const char* serverUrlVerificar = "http://192.168.100.16:8080/api/verificarSolicitud";
 const char* serverUrlPeso = "http://192.168.100.16:8080/api/peso";
+
+// Crear una instancia del sensor con tiempos de integración y ganancia por defecto
+Adafruit_TCS34725 tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_600MS, TCS34725_GAIN_1X);
 
 WiFiClient client;
 
@@ -18,9 +22,17 @@ void setup() {
     Serial.print(".");
   }
   Serial.println("\nConectado a WiFi");
+
+  // Iniciar el sensor de color
+  if (!tcs.begin()) {
+    Serial.println("No se pudo iniciar el sensor TCS34725.");
+  } else {
+    Serial.println("Sensor TCS34725 inicializado.");
+  }
 }
 
 void loop() {
+   imprimirRGB();
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
     http.begin(client, serverUrlVerificar);
@@ -32,7 +44,8 @@ void loop() {
       String response = http.getString();
       if (response == "true") {
         Serial.println("Solicitud de peso recibida, se procederá a enviar el peso.");
-        http.end();
+        imprimirRGB(); // Imprime los valores RGB
+        http.end();    // Finaliza la conexión actual antes de iniciar otra
         enviarPeso();  // Llama a la función para enviar el peso
       } else {
         Serial.println("No se solicitó la lectura del peso.");
@@ -42,7 +55,7 @@ void loop() {
       Serial.println(httpResponseCode);
     }
 
-    http.end();
+    http.end(); // Asegurar que la conexión HTTP finalice
   } else {
     Serial.println("WiFi no conectado, reconectando...");
     WiFi.begin(ssid, password);
@@ -77,6 +90,34 @@ void enviarPeso() {
       Serial.println(httpResponseCode);
     }
 
-    http.end();
+    http.end(); // Asegurar que la conexión HTTP finalice
+  }
+}
+
+void imprimirRGB() {
+  uint16_t r, g, b, c; // Variables para los valores de rojo, verde, azul y claridad
+  float redNorm, greenNorm, blueNorm;
+
+  // Obtener los valores RGB si el sensor está operativo
+  if (tcs.begin()) {
+    tcs.getRawData(&r, &g, &b, &c);
+
+    // Evitar división por cero
+    if (c == 0) c = 1;
+
+    // Normalizar los valores para tenerlos entre 0 y 255
+    redNorm = (float)r / c * 255.0;
+    greenNorm = (float)g / c * 255.0;
+    blueNorm = (float)b / c * 255.0;
+
+    // Imprimir valores normalizados de RGB
+    Serial.print("Rojo: ");
+    Serial.print((int)redNorm);
+    Serial.print(" Verde: ");
+    Serial.print((int)greenNorm);
+    Serial.print(" Azul: ");
+    Serial.println((int)blueNorm);
+  } else {
+    Serial.println("El sensor TCS34725 no está operativo.");
   }
 }
