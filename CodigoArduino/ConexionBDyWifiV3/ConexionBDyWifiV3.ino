@@ -48,11 +48,10 @@ void setup() {
     Serial.println("Sensor TCS34725 inicializado.");
   }
 
-  // Configuración de los botones
-  pinMode(botonColorPin, INPUT);
-  pinMode(botonPesoPin, INPUT);
+  // Configuración de los botones con resistencias pull-up internas
+  pinMode(botonColorPin, INPUT_PULLUP);  // Habilita la resistencia pull-up interna
+  pinMode(botonPesoPin, INPUT_PULLUP);   // Habilita la resistencia pull-up interna
 }
-
 void loop() {
   // Leer el estado del botón D3 (color)
   if (digitalRead(botonColorPin) == HIGH) {
