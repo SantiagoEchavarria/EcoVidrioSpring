@@ -21,6 +21,14 @@ public class Resultado {
     private String color;
     private String estado;
 
+    public int getIdresultado() {
+        return idresultado;
+    }
+
+    public void setIdresultado(int idresultado) {
+        this.idresultado = idresultado;
+    }
+
      // Getter y Setter para idsensor
      public int getIdsensor() {
         return idsensor;
